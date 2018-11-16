@@ -46,9 +46,9 @@
                     {% endfor %}
                 </select>
                 <input type="number" id="amountspent" name="amountspent">
-                <select class="schemegrouppicker" id="schemegroupname" name="schemegroupname" style="display: block; width: 100%" onmousemove="populateschemename()"></select>
-                <select class="schemepicker" id="schemename" name="schemename" style="display: block; width: 100%" onmousemove="populateworkgroupname()" ></select>
-                <select class="workgrouppicker" id="workgroupname" name="workgroupname" style="display: block; width: 100%" onmousemove="populateworktypename()"></select>
+                <select class="schemegrouppicker" id="schemegroupname" name="schemegroupname" style="display: block; width: 100%" onclick="populateschemename()"></select>
+                <select class="schemepicker" id="schemename" name="schemename" style="display: block; width: 100%" onclick="populateworkgroupname()" ></select>
+                <select class="workgrouppicker" id="workgroupname" name="workgroupname" style="display: block; width: 100%" onclick="populateworktypename()"></select>
                 <select class="worktypepicker" id="worktype" name="worktype" style="display: block; width: 100% "></select>
             </div>
         </div>
@@ -288,7 +288,7 @@
 
                 document.getElementById("amount").value = json[0]["amount"];
 
-                document.getElementById("workname").value = json[0]["workname"];
+                document.getElementById("workname").value = json[0]["work_name"];
 
                 document.getElementById("startdate").value = moment(json[0]["start_date"]['$date']).format('YYYY-MM-DD');
 
