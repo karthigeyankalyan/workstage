@@ -11,7 +11,6 @@ class Work(object):
                     start_date=None, end_date=None, work_id=None):
 
 
-
         if start_date:
 
             self.start_date = datetime.combine(datetime.strptime(start_date, '%Y-%m-%d').date(),
@@ -112,7 +111,7 @@ class Work(object):
 
             'work_status': self.work_status,
 
-            'work_name' : self.work_name,
+            'work_name': self.work_name,
 
             'amount_spent': self.amount_spent,
 
