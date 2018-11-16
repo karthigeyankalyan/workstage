@@ -1,0 +1,40 @@
+{% extends "post_login_HQ.html" %}
+{% block content %}
+
+<form id="new-intent" action="/add_scheme/{{ user._id }}" method="post">
+
+     <div style="display: flex; flex-direction: column; align-items: center; flex: 1; justify-content: space-around; margin-top: 10px">
+        <div>
+            <h3>Add Scheme Form</h3>
+        </div>
+
+     <div style="display: flex; flex-direction: row; justify-content: space-around; align-items: center">
+
+            <div class="form-group" style="display: flex; flex-direction: column; align-items: center; justify-content: space-between;">
+                <label for="schemegroupname">Scheme Group Name</label>
+                <label for="schemename">Scheme Name</label>
+                <label for="workgroupname">Work Group Name</label>
+                <label for="worktype">Work Type</label>
+            </div>
+
+
+             <div class="form-group" style="display: flex; flex-direction: column; align-items: center; justify-content: space-between;">
+
+                    <input type="text"  id="schemegroupname" name="schemegroupname">
+                    <input type="text"  id="schemename" name="schemename">
+                    <input type="text" id="workgroupname" name="workgroupname">
+                    <input type="text" id="worktype" name="worktype">
+
+             </div>
+     </div>
+
+     <button type="submit" class="btn btn-success">Save Scheme Details</button>
+
+
+</div>
+
+</form>
+
+
+{% endblock %}
+

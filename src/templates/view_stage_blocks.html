@@ -1,0 +1,148 @@
+{% extends "post_login_blocks.html" %}
+{% block content %}
+
+
+    <div id="input">
+
+         <label style="flex: 4" for="Search">Search by ID</label>
+        <input id="Search" type="text" onkeyup="myFunction()" name="Search" style="display: block; width: 100%">
+
+    </div>
+
+
+    <div id="StageList">
+
+    </div>
+
+
+<script>
+
+
+
+      var source = "/Stagesbywork/{{work_id}}"
+
+      $.ajax({
+
+          type: 'GET',
+
+          url: source,
+
+          contentType: "application/json",
+
+          dataType: 'json',
+
+          success: function (json) {
+
+              {
+                  console.log(json);
+
+                  $("#StageDetails").find("tbody").empty();
+
+                  var tbl = $("<table class='table table-bordered table-dark' id='StageDetails'/>");
+
+                  $("#StageList").append(tbl);
+
+                  var hr = "<tr>";
+
+                  var th1 = "<th style='text-align:center;vertical-align:middle'>" + "Start date" + "</th>";
+
+                  var th2 = "<th style='text-align:center;vertical-align:middle'>" + "End date" + "</th>";
+
+                  var th3 = "<th style='text-align:center;vertical-align:middle'>" + "Stage Name" + "</th>";
+
+                  var th5 = "<th style='text-align:center;vertical-align:middle'>" + "Stage Order ID" + "</th>";
+
+                  var th6 = "<th style='text-align:center;vertical-align:middle'>" + "Amount" + "</th>";
+
+                  var th7 = "<th style='text-align:center;vertical-align:middle'>" + "Uploaded by" + "</th>";
+
+                  var th8 = "<th style='text-align:center;vertical-align:middle'>" + "Update" + "</th>";
+
+
+                  $("#StageDetails").append(hr + th1 + th2 + th3 + th5 + th6 + th7 + th8);
+
+                  for (var j = 0; j < json.length; j++) {
+
+                      {
+
+                          var url = '/updatestage/' + json[j]['_id'];
+
+                          var row = $('<tr></tr>').html('<td>' +
+
+                               moment(json[j]["start_date"]['$date']).format('YYYY-MM-DD') + '</td>' +
+
+                              '<td>' + moment(json[j]["end_date"]['$date']).format('YYYY-MM-DD') + '</td>' +
+
+                              '<td>' + json[j]["stage_name"] + '</td>' +
+
+                              '<td>' + json[j]["stage_order_id"] + '</td>' +
+
+                              '<td>' + json[j]["amount"] + '</td>' +
+
+                              '<td>' + json[j]["user_name"] + '</td>' +
+
+                              '<td><button><a href="' + url + '">Update Stage</a></button></td>');
+
+                          $("#StageDetails").append(row);
+
+                      }
+
+                  }
+
+
+              }
+
+          },
+
+          error: function (e) {
+
+              alert("error");
+
+          }
+
+      });
+
+
+      function myFunction() {
+
+          var input, filter, table, tr, td, i;
+
+          input = document.getElementById("Search");
+
+          filter = input.value.toUpperCase();
+
+          table = document.getElementById("StageList");
+
+          tr = table.getElementsByTagName("tr");
+
+          console.log(tr.length);
+
+          for (i = 0; i < tr.length; i++) {
+
+              td = tr[i].getElementsByTagName("td")[3];
+
+              if (td) {
+
+                  if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+
+                      tr[i].style.display = "";
+
+                  } else {
+
+                      tr[i].style.display = "none";
+
+                  }
+
+              }
+
+          }
+
+
+
+  }
+
+</script>
+
+
+
+{% endblock %}

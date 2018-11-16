@@ -1,0 +1,62 @@
+{% extends "post_login_HQ.html" %}
+
+{% block content %}
+
+<form id="new-intent" action="/updatescheme/{{ _id }}" method="post">
+
+    <div style="display: flex; flex-direction: column; align-items: center; flex: 1; justify-content: space-around; margin-top: 10px">
+        <div>
+            <h3>Update Scheme Form</h3>
+        </div>
+
+    <div style="display: flex; flex-direction: row; justify-content: space-around; align-items: center">
+
+        <div class="form-group" style="display: flex; flex-direction: column; align-items: center; justify-content: space-between;">
+            <label style="flex: 4" for="schemegroupname">Scheme Group Name</label>
+            <label style="flex: 4" for="schemename">Scheme Name</label>
+            <label style="flex: 4" for="workgroupname">Work Group Name</label>
+            <label style="flex: 4" for="worktype">Work Type</label>
+        </div>
+
+        <div class="form-group" style="display: flex; flex-direction: column; align-items: center; justify-content: space-between;">
+            <input type="text" id="schemegroupname" name="schemegroupname" style="display: block; width: 100%">
+            <input type="text" id="schemename" name="schemename" style="display: block; width: 100%">
+            <input type="text" id="workgroupname" name="workgroupname" style="display: block; width: 100%">
+            <input type="text" id="worktype" name="worktype" style="display: block; width: 100%">
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-success">Save Scheme Details</button>
+
+    </div>
+
+</form>
+
+<script>
+
+    var source = "/raw_scheme/"+"{{_id}}";
+            $.ajax({
+            type: 'GET',
+            url: source,
+            contentType: "application/json",
+            dataType: 'json',
+            success: function (json) {
+                console.log(json);
+                document.getElementById("schemegroupname").value = json[0]["scheme_group_name"];
+                document.getElementById("schemename").value = json[0]["scheme_name"];
+                document.getElementById("workgroupname").value = json[0]["work_group_name"];
+                document.getElementById("worktype").value = json[0]["work_type"];
+            },
+            error: function (e) {
+                alert("error");
+            }
+        });
+
+</script>
+
+{% endblock %}
+
+
+
+
+

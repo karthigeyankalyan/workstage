@@ -1,0 +1,42 @@
+{% extends "post_login_blocks.html" %}
+
+{% block content %}
+
+
+
+<div style="display: flex; flex-direction: column; justify-content: space-between; align-items: center;">
+
+    <form id="getByDate" action="/Block_summary" method="post">
+
+        <div>
+
+            Enter Dates Below to get Block Summary
+
+        </div>
+
+        <div>
+
+            <label for="startdate">Start Date</label>
+
+            <input type="date" id="startdate" name="startdate">
+
+        </div>
+
+        <div>
+
+            <label for="enddate">End Date</label>
+
+            <input type="date" id="enddate" name="enddate">
+
+        </div>
+
+
+        <button type="submit" class="btn btn-success">Block Summary</button>
+
+    </form>
+
+</div>
+
+
+
+{% endblock %}

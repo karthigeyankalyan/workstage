@@ -1,0 +1,76 @@
+{% extends "post_login_HQ.html" %}
+{% block content %}
+
+<body>
+
+ <div style="display: flex; flex-direction: row; justify-content: space-around; align-items: center; margin-top: 10px">
+
+    <button onclick="downloadDeadlineViolationStagesReport()">Stage Inactive Report</button>
+
+ </div>
+
+</body>
+
+<script>
+
+      function downloadDeadlineViolationStagesReport() {
+
+            var source = "/DeadlineViolationStagesReport";
+
+             $.ajax({
+
+          type: 'GET',
+
+          url: source,
+
+          contentType: "application/json",
+
+          dataType: 'json',
+
+          success: function (json) {
+
+              var doc = new jsPDF();
+
+              doc.setFontSize(16);
+
+              var heading = doc.splitTextToSize('DISTRICT RURAL DEVELOPMENT AUTHORITY ' +
+
+                    'DINDUGUL', 200);
+
+              doc.text(30, 20, heading);
+
+              var period = doc.splitTextToSize('Stage Inactive Report ', 160);
+
+              doc.text(75, 35, period);
+
+              var columns = ["S. No", "Work Name", "Stage Name", "Stage Start Date", "Stage Order ID"];
+
+              var rows = [];
+
+               for (var i = 0; i < json.length; i++) {
+                    rows.push([[i + 1], [json[i]['work_name']], [json[i]['stage_name']],
+                    [moment(json[i]['start_date']['$date']).format('DD-MM-YYYY')],
+                     [json[i]['stage_order_id']]]);
+               }
+
+               doc.autoTable(columns, rows, {startY: 45});
+                var today = new Date();
+                var newdat = "Date Printed : "+ today;
+                doc.text(107,290,newdat);
+                doc.save('Stage-Inactive-Report.pdf')
+          },
+            error: function (e) {
+
+                alert("error");
+
+            }
+
+        });
+    }
+
+    </script>
+
+
+{% endblock %}
+
+

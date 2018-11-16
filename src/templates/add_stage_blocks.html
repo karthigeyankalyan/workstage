@@ -1,0 +1,46 @@
+{% extends "post_login_blocks.html" %}
+
+{% block content %}
+
+
+
+<form id="new-intent" action="/add_stage/{{ work_id }}" method="post">
+
+     <div style="display: flex; flex-direction: column; align-items: center; flex: 1; justify-content: space-around; margin-top: 10px">
+        <div>
+            <h3>Add Stage Form</h3>
+        </div>
+
+      <div style="display: flex; flex-direction: row; justify-content: space-around; align-items: center">
+
+            <div class="form-group" style="display: flex; flex-direction: column; align-items: center; justify-content: space-between;">
+                <label for="startdate">Start Date</label>
+                <label for="enddate">End Date</label>
+                <label for="amount">Amount</label>
+                <label for="stagename">Stage Name</label>
+                <label for="totalstages">Total Stages</label>
+                <label for="stageorderid">Stag Order ID</label>
+            </div>
+
+            <div class="form-group" style="display: flex; flex-direction: column; align-items: center; justify-content: space-between;">
+                <input type="date" value="startdate" id="startdate" name="startdate">
+                <input type="date" value="enddate" id="enddate" name="enddate">
+                <input type="number" id="amount" name="amount">
+                <input type="text" id="stagename" name="stagename">
+                <input type="number" id="totalstages" name="totalstages">
+                <input type="number" id="stageorderid" name="stageorderid">
+
+            </div>
+        </div>
+
+
+    <button type="submit" class="btn btn-success">Save Stage Details</button>
+
+
+
+</div>
+
+</form>
+
+
+{% endblock %}

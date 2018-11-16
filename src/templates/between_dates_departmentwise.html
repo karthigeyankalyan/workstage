@@ -1,0 +1,236 @@
+{% extends "post_login_HQ.html" %}
+
+{% block content %}
+
+
+
+<div style="display: flex; flex-direction: column; justify-content: space-between; align-items: center;">
+
+    <form id="getByDate" action="/Scheme_summary" method="post">
+
+        <div>
+
+            Enter Dates Below to get Scheme-wise Summary
+
+        </div>
+
+
+      <div style="display: flex; flex-direction: row; justify-content: space-around; align-items: center">
+
+            <div class="form-group" style="display: flex; flex-direction: column; align-items: center; justify-content: space-between;">
+                <label for="startdate">Start Date</label>
+                <label for="enddate">End Date</label>
+                <label for="schemegroupname">Scheme Group Name</label>
+                <label for="schemename">Scheme name</label>
+                <label for="workgroupname">Work Group Name</label>
+                <label for="worktype">Work Type</label>
+            </div>
+
+            <div class="form-group" style="display: flex; flex-direction: column; align-items: center; justify-content: space-between;">
+                   <input type="date" value="startdate" id="startdate" name="startdate">
+                   <input type="date" value="enddate" id="enddate" name="enddate">
+                   <select class="schemegrouppicker" id="schemegroupname" name="schemegroupname" style="display: block; width: 100%" onmousemove="populateschemename()"></select>
+                   <select class="schemepicker" id="schemename" name="schemename" style="display: block; width: 100%" onmousemove="populateworkgroupname()" ></select>
+                   <select class="workgrouppicker" id="workgroupname" name="workgroupname" style="display: block; width: 100%" onmousemove="populateworktype()"></select>
+                   <select class="worktypepicker" id="worktype" name="worktype" style="display: block; width: 100% "></select>
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-success">Scheme-wise Summary</button>
+
+    </form>
+
+</div>
+
+<script>
+
+
+         var source =  "/rawschemegroupname";
+
+    $.ajax({
+
+            type: 'GET',
+
+            url: source,
+
+            contentType: "application/json",
+
+            dataType: 'json',
+
+            success: function (json) {
+
+                var arr = [];
+                console.log(json);
+
+                for(var i = 0; i < json.length; i++) {
+                    if(arr.indexOf(json[i]['scheme_group_name']) === -1) {
+                        arr.push(json[i]['scheme_group_name']);
+                    }
+                }
+                console.log(arr);
+
+             var $schemegroupname = $('.schemegrouppicker');
+
+                var htmlEO = $.map(arr, function(lcn){
+
+                    return '<option value="' + lcn + '">' + lcn + '</option>'
+
+                });
+
+                $schemegroupname.html(htmlEO);
+
+            },
+
+            error: function (e) {
+
+                alert("error");
+
+              }
+
+        });
+
+
+
+
+         function populateschemename() {
+
+          var source = "/rawschemename";
+
+           $.ajax({
+
+            type: 'GET',
+
+            url: source,
+
+            contentType: "application/json",
+
+            dataType: 'json',
+
+            success: function (json) {
+
+                var arr = [];
+
+                for(var i = 0; i < json.length; i++) {
+
+                    if(arr.indexOf(json[i]['scheme_name']) === -1) {
+
+                        arr.push(json[i]['scheme_name']);
+
+                    }
+                }
+             var $schemename = $('.schemepicker');
+
+                var htmlEO = $.map(arr, function(lcn){
+
+                    return '<option value="' + lcn + '">' + lcn + '</option>'
+
+                });
+
+                $schemename.html(htmlEO);
+
+            },
+
+            error: function (e) {
+
+                alert("error");
+
+            }
+        });
+    }
+
+     function populateworkgroupname() {
+
+          var source = "/rawworkgroupname";
+
+           $.ajax({
+
+            type: 'GET',
+
+            url: source,
+
+            contentType: "application/json",
+
+            dataType: 'json',
+
+            success: function (json) {
+
+                var arr = [];
+
+                for(var i = 0; i < json.length; i++) {
+
+                    if(arr.indexOf(json[i]['work_group_name']) === -1) {
+
+                        arr.push(json[i]['work_group_name']);
+
+                    }
+                }
+             var $workgroupname = $('.workgrouppicker');
+
+                var htmlEO = $.map(arr, function(lcn){
+
+                    return '<option value="' + lcn + '">' + lcn + '</option>'
+
+                });
+
+                $workgroupname.html(htmlEO);
+
+            },
+
+            error: function (e) {
+
+                alert("error");
+
+            }
+        });
+    }
+
+      function populateworktype() {
+
+          var source = "/rawworktype";
+
+           $.ajax({
+
+            type: 'GET',
+
+            url: source,
+
+            contentType: "application/json",
+
+            dataType: 'json',
+
+            success: function (json) {
+
+                var arr = [];
+
+                for(var i = 0; i < json.length; i++) {
+
+                    if(arr.indexOf(json[i]['work_type']) === -1) {
+
+                        arr.push(json[i]['work_type']);
+
+                    }
+                }
+             var $worktype = $('.worktypepicker');
+
+                var htmlEO = $.map(arr, function(lcn){
+
+                    return '<option value="' + lcn + '">' + lcn + '</option>'
+
+                });
+
+                $worktype.html(htmlEO);
+
+            },
+
+            error: function (e) {
+
+                alert("error");
+
+            }
+        });
+    }
+
+</script>
+
+
+{% endblock %}

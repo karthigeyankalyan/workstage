@@ -1,0 +1,313 @@
+{% extends "post_login_blocks.html" %}
+{% block content %}
+
+<form id="new-intent" action="/updatework/{{ work_id }}" method="post">
+
+
+    <div style="display: flex; flex-direction: column; align-items: center; flex: 1; justify-content: space-around; margin-top: 10px">
+        <div>
+            <h3>Update Work Form</h3>
+        </div>
+
+        <div style="display: flex; flex-direction: row; justify-content: space-around; align-items: center">
+
+            <div class="form-group" style="display: flex; flex-direction: column; align-items: center; justify-content: space-between;">
+                <label for="Blocks">Blocks</label>
+                <label for="startdate">Start Date</label>
+                <label for="enddate">End Date</label>
+                <label for="amount">Amount</label>
+                <label for="workname">Work Name</label>
+                <label for="totalstages">Total Stages</label>
+                <label for="workstatus">Work Status</label>
+                <label for="amountspent">Amount Spent</label>
+                <label for="schemegroupname">Scheme Group Name</label>
+                <label for="schemename">Scheme name</label>
+                <label for="workgroupname">Work Group Name</label>
+                <label for="worktype">Work Type</label>
+
+            </div>
+
+            <div class="form-group" style="display: flex; flex-direction: column; align-items: center; justify-content: space-between;">
+                <select style="flex: 4" class="form-control" id="Blocks" name="Blocks">
+                    {% set nature = ['Kodaikanal', 'Vattalkundu', 'Palani', 'Attur', 'Nilakottai', 'Nattam', 'Dindugul', 'Dindugul-HQ', 'Reddiyarchairam', 'Shanarapatti', 'Vadamadurai', 'Thoppampatti', 'Oddanachatram', 'Vedasandur', 'Guziliamparai'] %}
+                    {% for nat in nature %}
+                        <option value= "{{nat}}">{{nat}}</option>"
+                    {% endfor %}
+                </select>
+                <input type="date" value="startdate" id="startdate" name="startdate">
+                <input type="date" value="enddate" id="enddate" name="enddate">
+                <input type="number" id="amount" name="amount">
+                <input type="text" id="workname" name="workname">
+                <input type="number" id="totalstages" name="totalstages">
+                <select style="flex: 4" class="form-control" id="workstatus" name="workstatus" value="Open">
+                    {% set nature = ['Open', 'Close'] %}
+                    {% for nat in nature %}
+                        <option value= "{{nat}}">{{nat}}</option>"
+                    {% endfor %}
+                </select>
+                <input type="number" id="amountspent" name="amountspent">
+                <select class="schemegrouppicker" id="schemegroupname" name="schemegroupname" style="display: block; width: 100%" onmousemove="populateschemename()"></select>
+                <select class="schemepicker" id="schemename" name="schemename" style="display: block; width: 100%" onmousemove="populateworkgroupname()" ></select>
+                <select class="workgrouppicker" id="workgroupname" name="workgroupname" style="display: block; width: 100%" onmousemove="populateworktypename()"></select>
+                <select class="worktypepicker" id="worktype" name="worktype" style="display: block; width: 100% "></select>
+            </div>
+        </div>
+
+    <button type="submit" class="btn btn-success">Save Work Details</button>
+
+
+    </div>
+</form>
+
+<script>
+
+     var source = "/rawschemegroupname";
+
+    $.ajax({
+
+            type: 'GET',
+
+            url: source,
+
+            contentType: "application/json",
+
+            dataType: 'json',
+
+            success: function (json) {
+
+                var arr = [];
+                console.log(json);
+
+                for(var i = 0; i < json.length; i++) {
+                    if(arr.indexOf(json[i]['scheme_group_name']) === -1) {
+                        arr.push(json[i]['scheme_group_name']);
+                    }
+                }
+                console.log(arr);
+
+             var $schemegroupname = $('.schemegrouppicker');
+
+                var htmlEO = $.map(arr, function(lcn){
+
+                    return '<option value="' + lcn + '">' + lcn + '</option>'
+
+                });
+
+                $schemegroupname.html(htmlEO);
+
+            },
+
+            error: function (e) {
+
+                alert("error");
+
+            }
+
+        });
+
+    function populateschemename() {
+
+         var scheme_group_name = document.getElementById('schemegroupname').value;
+
+          var source = "/rawschemename/"+scheme_group_name;
+
+           $.ajax({
+
+            type: 'GET',
+
+            url: source,
+
+            contentType: "application/json",
+
+            dataType: 'json',
+
+            success: function (json) {
+
+                var arr = [];
+
+                for(var i = 0; i < json.length; i++) {
+
+                    if(arr.indexOf(json[i]['scheme_name']) === -1) {
+
+                        arr.push(json[i]['scheme_name']);
+
+                    }
+                }
+             var $schemename = $('.schemepicker');
+
+                var htmlEO = $.map(arr, function(lcn){
+
+                    return '<option value="' + lcn + '">' + lcn + '</option>'
+
+                });
+
+                $schemename.html(htmlEO);
+
+            },
+
+            error: function (e) {
+
+                alert("error");
+
+            }
+        });
+    }
+
+    function populateworkgroupname() {
+
+         var scheme_group_name = document.getElementById('schemegroupname').value;
+
+         var scheme_name = document.getElementById('schemename').value;
+
+          var source = "/rawworkgroupname/"+scheme_group_name+"/"+scheme_name;
+
+           $.ajax({
+
+            type: 'GET',
+
+            url: source,
+
+            contentType: "application/json",
+
+            dataType: 'json',
+
+            success: function (json) {
+
+                var arr = [];
+
+                for(var i = 0; i < json.length; i++) {
+
+                    if(arr.indexOf(json[i]['work_group_name']) === -1) {
+
+                        arr.push(json[i]['work_group_name']);
+
+                    }
+                }
+             var $workgroupname = $('.workgrouppicker');
+
+                var htmlEO = $.map(arr, function(lcn){
+
+                    return '<option value="' + lcn + '">' + lcn + '</option>'
+
+                });
+
+                $workgroupname.html(htmlEO);
+
+            },
+
+            error: function (e) {
+
+                alert("error");
+
+            }
+        });
+    }
+
+     function populateworktypename() {
+
+         var scheme_group_name = document.getElementById('schemegroupname').value;
+
+         var scheme_name = document.getElementById('schemename').value;
+
+         var work_group_name = document.getElementById('workgroupname').value;
+
+          var source = "/rawworktype/"+scheme_group_name+"/"+scheme_name+"/"+work_group_name;
+
+           $.ajax({
+
+            type: 'GET',
+
+            url: source,
+
+            contentType: "application/json",
+
+            dataType: 'json',
+
+            success: function (json) {
+
+                var arr = [];
+
+                for(var i = 0; i < json.length; i++) {
+
+                    if(arr.indexOf(json[i]['work_type']) === -1) {
+
+                        arr.push(json[i]['work_type']);
+
+                    }
+                }
+             var $worktype = $('.worktypepicker');
+
+                var htmlEO = $.map(arr, function(lcn){
+
+                    return '<option value="' + lcn + '">' + lcn + '</option>'
+
+                });
+
+                $worktype.html(htmlEO);
+
+            },
+
+            error: function (e) {
+
+                alert("error");
+
+            }
+        });
+    }
+
+
+    var source = "/raw_work/"+"{{work_id}}";
+
+            $.ajax({
+
+            type: 'GET',
+
+            url: source,
+
+            contentType: "application/json",
+
+            dataType: 'json',
+
+            success: function (json) {
+
+                console.log(json);
+
+                document.getElementById("Blocks").value = json[0]["block"];
+
+                document.getElementById("workstatus").value = json[0]["work_status"];
+
+                document.getElementById("schemegroupname").value = json[0]["scheme_group_name"];
+
+                document.getElementById("schemename").value = json[0]["scheme_name"];
+
+                document.getElementById("workgroupname").value = json[0]["work_group_name"];
+
+                document.getElementById("worktype").value = json[0]["work_type"];
+
+                document.getElementById("totalstages").value = json[0]["total_stages"];
+
+                document.getElementById("amount").value = json[0]["amount"];
+
+                document.getElementById("workname").value = json[0]["workname"];
+
+                document.getElementById("startdate").value = moment(json[0]["start_date"]['$date']).format('YYYY-MM-DD');
+
+                document.getElementById("enddate").value = moment(json[0]["end_date"]['$date']).format('YYYY-MM-DD');
+
+        },
+
+            error: function (e) {
+
+                alert("error");
+
+            }
+
+        });
+
+
+
+</script>
+
+
+
+{% endblock %}

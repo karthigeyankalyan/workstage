@@ -1,0 +1,354 @@
+{% extends "post_login_blocks.html" %}
+{% block content %}
+
+<style>
+
+    #totalAmount, #totalWorks, #totalCompletedWorks {
+
+        border: 5px groove;
+
+        margin-top: 40px;
+
+        width: 20%;
+
+        align-items: center;
+
+        justify-content: center;
+
+        display: flex;
+
+        color: green;
+
+        padding: 20px;
+
+    }
+
+</style>
+
+<body>
+
+
+     <div style="display: flex; flex-direction: row; justify-content: space-around;">
+
+        <div id="totalWorks">
+
+        </div>
+
+        <div id="totalAmount">
+
+        </div>
+
+        <div id="totalCompletedWorks">
+
+        </div>
+
+    </div>
+
+  <div>
+            <h3>Top Scheme Names by Amount</h3>
+  </div>
+
+ <div id="SummaryList">
+
+ </div>
+
+ <div style="display: flex; flex-direction: row; justify-content: space-around; align-items: center; margin-top: 10px">
+
+    <button onclick="downloadSummaryBlockReport()">Blockwise Summary Report</button>
+
+ </div>
+
+
+
+</body>
+
+<script>
+
+    var start_date = "{{start_date}}";
+
+    var end_date = "{{end_date}}";
+
+    var block = "{{block}}";
+
+    var full_amount = 0;
+
+    var full_work = 0;
+
+    var full_completed_work = 0;
+
+        var source = "/BlockReport/"+start_date+"/"+end_date+"/"+block;
+
+         $.ajax({
+
+            type: 'GET',
+
+            url: source,
+
+            contentType: "application/json",
+
+            dataType: 'json',
+
+            success: function (json) {
+
+                var aggregatedData = d3.nest()
+
+                    .key(function (d) {
+
+                        return d.scheme_name;
+
+                    })
+
+                    .rollup(function (leaves) {
+
+                        return {
+
+                            "total_amount": d3.sum(leaves, function (d) {
+
+                                return d.amount;
+                            }),
+
+                            "total_work": leaves.length,
+
+                             "completed_work": leaves.filter(function (leaves){return leaves.work_status === "Close"}).length
+                        }
+                    })
+                    .entries(json);
+
+                aggregatedData.forEach(function (d) {
+                    d.SchemeName = d.key;
+                    d.TotalAmount = d.values.total_amount;
+                    d.TotalWork = d.values.total_work;
+                    d.CompletedWork = d.values.completed_work;
+                });
+
+                var topData = aggregatedData.sort(function (a, b) {
+
+                    return d3.descending(+a.TotalAmount, +b.TotalAmount);
+
+                }).slice(0, 5);
+
+                  var tbl = $("<table class='table table-bordered table-dark' id='SummaryDetails'/>");
+
+                $("#SummaryList").append(tbl);
+
+                var hr = "<tr>";
+
+                var th1 = "<th style='text-align:center;vertical-align:middle'>" + "S. No" + "</th>";
+
+                var th2 = "<th style='text-align:center;vertical-align:middle'>" + "Scheme Name" + "</th>";
+
+                var th3 = "<th style='text-align:center;vertical-align:middle'>" + "Total Amount" + "</th>";
+
+                var th4 = "<th style='text-align:center;vertical-align:middle'>" + "Total Work" + "</th>";
+
+                var th5 = "<th style='text-align:center;vertical-align:middle'>" + "Completed Work" + "</th>";
+
+                $("#SummaryDetails").append(hr + th1 + th2 + th3 + th4 + th5 );
+
+                for (var j = 0; j < topData.length; j++) {
+
+                    var row = $('<tr></tr>').html(
+                        '<td>' + (j + 1) + '</td>' +
+
+                        '<td>' + topData[j].key + '</td>' +
+
+                        '<td>' + topData[j].TotalAmount + '</td>' +
+
+                        '<td>' + topData[j].TotalWork + '</td>' +
+
+                        '<td>' + topData[j].CompletedWork + '</td>');
+
+                    $("#SummaryDetails").append(row);
+
+                }
+
+            },
+
+             error: function (e) {
+
+                alert("error");
+
+             }
+        });
+
+    var start_date = "{{start_date}}";
+
+        var end_date = "{{end_date}}";
+
+        var block = "{{block}}";
+
+        var source = "/BlockReport/"+start_date+"/"+end_date+"/"+block;
+
+         $.ajax({
+
+            type: 'GET',
+
+            url: source,
+
+            contentType: "application/json",
+
+            dataType: 'json',
+
+            success: function (json) {
+
+                var aggregatedData = d3.nest()
+
+                    .key(function (d) {
+
+                        return d.scheme_name;
+
+                    })
+
+                    .rollup(function (leaves) {
+
+                        return {
+
+                            "total_amount": d3.sum(leaves, function (d) {
+
+                                return d.amount;
+                            }),
+
+                            "total_work": leaves.length,
+
+                             "completed_work": leaves.filter(function (leaves){return leaves.work_status === "Close"}).length
+                        }
+                    })
+                    .entries(json);
+
+
+
+                for (var l = 0; l < parseInt(aggregatedData.length); l++) {
+
+                    full_amount += aggregatedData[l].values.total_amount;
+
+                    full_work += aggregatedData[l].values.total_work;
+
+                    full_completed_work += aggregatedData[l].values.completed_work;
+
+                }
+
+                document.getElementById("totalWorks").innerHTML = "Total Works :  " + full_work;
+
+                document.getElementById("totalAmount").innerHTML = "Total Amount :  " + full_amount;
+
+                document.getElementById("totalCompletedWorks").innerHTML = "Total Completed Works :  " + full_completed_work;
+
+            },
+
+         error: function (e) {
+
+            alert("error");
+
+        }
+
+    });
+
+
+    function downloadSummaryBlockReport() {
+
+        var start_date = "{{start_date}}";
+
+        var end_date = "{{end_date}}";
+
+        var block = "{{block}}";
+
+        var source = "/BlockReport/"+start_date+"/"+end_date+"/"+block;
+
+         $.ajax({
+
+            type: 'GET',
+
+            url: source,
+
+            contentType: "application/json",
+
+            dataType: 'json',
+
+            success: function (json) {
+
+                var aggregatedData = d3.nest()
+
+                    .key(function (d) {
+
+                        return d.scheme_name;
+
+                    })
+
+                    .rollup(function (leaves) {
+
+                        return {
+
+                            "total_amount": d3.sum(leaves, function (d) {
+
+                                return d.amount;
+                            }),
+
+                            "total_amount_spent": d3.sum(leaves, function (d) {return d.amount_spent;}),
+
+                            "total_work": leaves.length,
+
+                             "completed_work": leaves.filter(function (leaves){return leaves.work_status === "Close"}).length
+                        }
+                    })
+                    .entries(json);
+
+                 console.log(aggregatedData)
+
+                var doc = new jsPDF();
+
+                doc.setFontSize(16);
+
+                var heading = doc.splitTextToSize('DISTRICT RURAL DEVELOPMENT AUTHORITY ' +
+
+                    'DINDUGUL', 200);
+
+                doc.text(30, 20, heading);
+
+                var period = doc.splitTextToSize('Block Report ' + start_date + ' to ' + end_date, 140);
+
+                doc.text(40, 35, period);
+
+                var columns = ["S. No", "Scheme Name", "Total Works", "Completed", "Pending", "Total Amount", "Amount Spent", "Balance", "Percentage"];
+
+                var rows = [];
+
+                for (var l = 0; l < aggregatedData.length; l++) {
+
+                    rows.push([[l + 1], [aggregatedData[l].key],
+                        [aggregatedData[l].values.total_work], [aggregatedData[l].values.completed_work], [([aggregatedData[l].values.total_work])-([aggregatedData[l].values.completed_work])],
+                        [aggregatedData[l].values.total_amount],[aggregatedData[l].values.total_amount_spent],[([aggregatedData[l].values.total_amount])-([aggregatedData[l].values.total_amount_spent])],
+                        ([aggregatedData[l].values.total_amount_spent]/[aggregatedData[l].values.total_amount]*100)]);
+
+                }
+
+                 doc.autoTable(columns, rows, {
+
+                        startY: 65,
+
+                        styles: {overflow: 'linebreak', fontSize: 10},
+
+                        columnStyles: { 1: {columnWidth: 25}, 2: {columnWidth: 25}, 5: {columnWidth: 21}, 4: {columnWidth: 18},  7: {columnWidth: 21} }
+
+                    });
+                var today = new Date();
+                var newdat = "Date Printed : "+ today;
+                doc.text(107,290,newdat);
+                doc.text(40,45, "Total Amount:"+full_amount);
+                doc.text(40,50, "Total Works Undertaken:"+full_work);
+                doc.text(40,55,"Total Completed Works:"+full_completed_work);
+                doc.save('Block-Summary-Report.pdf')
+            },
+
+            error: function (e) {
+
+                alert("error");
+
+            }
+
+        });
+    }
+
+    </script>
+
+
+{% endblock %}

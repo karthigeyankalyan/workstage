@@ -1,0 +1,70 @@
+{% extends "post_login_blocks.html" %}
+
+{% block content %}
+
+<form id="new-intent" action="/updatestage/{{ _id }}" method="post">
+
+    <div style="display: flex; flex-direction: column; align-items: center; flex: 1; justify-content: space-around; margin-top: 10px">
+        <div>
+            <h3>Update Stage Form</h3>
+        </div>
+
+    <div style="display: flex; flex-direction: row; justify-content: space-around; align-items: center">
+
+        <div class="form-group" style="display: flex; flex-direction: column; align-items: center; justify-content: space-between;">
+            <label style="flex: 4" for="stagename">Stage Name</label>
+            <label for="startdate">Start Date</label>
+            <label for="enddate">End Date</label>
+            <label for="amount">Amount</label>
+            <label style="flex: 4" for="totalstages">Total Stages</label>
+            <label style="flex: 4" for="stageorderid">Stage Order ID</label>
+        </div>
+
+        <div class="form-group" style="display: flex; flex-direction: column; align-items: center; justify-content: space-between;">
+            <input type="text" id="stagename" name="stagename" style="display: block; width: 100%">
+            <input type="date" value="startdate" id="startdate" name="startdate">
+            <input type="date" value="enddate" id="enddate" name="enddate">
+            <input type="number" id="amount" name="amount">
+            <input type="number" id="totalstages" name="totalstages" style="display: block; width: 100%">
+            <input type="number" id="stageorderid" name="stageorderid" style="display: block; width: 100%">
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-success">Save Stage Details</button>
+
+    </div>
+
+</form>
+
+<script>
+
+    var source = "/raw_stage/"+"{{_id}}";
+            $.ajax({
+            type: 'GET',
+            url: source,
+            contentType: "application/json",
+            dataType: 'json',
+            success: function (json) {
+                console.log(json);
+                document.getElementById("stagename").value = json[0]["stage_name"];
+                document.getElementById("stageorderid").value = json[0]["stage_order_id"];
+                document.getElementById("totalstages").value = json[0]["total_stages"];
+                document.getElementById("amount").value = json[0]["amount"];
+                document.getElementById("startdate").value = moment(json[0]["start_date"]['$date']).format('YYYY-MM-DD');
+                document.getElementById("enddate").value = moment(json[0]["end_date"]['$date']).format('YYYY-MM-DD');
+        },
+            error: function (e) {
+                alert("error");
+            }
+        });
+
+</script>
+
+{% endblock %}
+
+
+
+
+
+Reply
+Forward

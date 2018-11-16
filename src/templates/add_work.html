@@ -1,0 +1,387 @@
+{% extends "post_login_HQ.html" %}
+{% block content %}
+
+<form id="new-intent" action="/add_work/{{ user._id }}" method="post">
+
+    <div style="display: flex; flex-direction: column; align-items: center; flex: 1; justify-content: space-around; margin-top: 10px">
+        <div>
+            <h3>Add Work Form</h3>
+        </div>
+
+        <div style="display: flex; flex-direction: row; justify-content: space-around; align-items: center">
+
+            <div class="form-group" style="display: flex; flex-direction: column; align-items: center; justify-content: space-between;">
+                <label for="Blocks">Blocks</label>
+                <label for="startdate">Start Date</label>
+                <label for="enddate">End Date</label>
+                <label for="amount">Amount</label>
+                <label for="workname">Work Name</label>
+                <label for="totalstages">Total Stages</label>
+                <label for="schemegroupname">Scheme Group Name</label>
+                <label for="schemename">Scheme name</label>
+                <label for="workgroupname">Work Group Name</label>
+                <label for="worktype">Work Type</label>
+
+            </div>
+
+            <div class="form-group" style="display: flex; flex-direction: column; align-items: center; justify-content: space-between;">
+                <select style="flex: 4" class="form-control" id="Blocks" name="Blocks" onchange="createNewStages()">
+                    {% set nature = ['Kodaikanal', 'Vattalkundu', 'Palani', 'Attur', 'Nilakottai', 'Nattam', 'Dindugul', 'Dindugul-HQ', 'Reddiyarchairam', 'Shanarapatti', 'Vadamadurai', 'Thoppampatti', 'Oddanachatram', 'Vedasandur', 'Guziliamparai'] %}
+                    {% for nat in nature %}
+                        <option value= "{{nat}}">{{nat}}</option>"
+                    {% endfor %}
+                </select>
+                <input type="date" value="startdate" id="startdate" name="startdate">
+                <input type="date" value="enddate" id="enddate" name="enddate">
+                <input type="number" id="amount" name="amount">
+                <input type="text" id="workname" name="workname">
+                <input type="number" id="totalstages" name="totalstages">
+                <select class="schemegrouppicker" id="schemegroupname" name="schemegroupname" style="display: block; width: 100%" onmousemove="populateschemename()"></select>
+                <select class="schemepicker" id="schemename" name="schemename" style="display: block; width: 100%" onmousemove="populateworkgroupname()" ></select>
+                <select class="workgrouppicker" id="workgroupname" name="workgroupname" style="display: block; width: 100%" onmousemove="populateworktypename()"></select>
+                <select class="worktypepicker" id="worktype" name="worktype" style="display: block; width: 100% "></select>
+            </div>
+        </div>
+
+    <button type="button"><a onclick="addAnotherStage()">Add Another Stage</a></button>
+
+    <div id="stageDetails" class="form-group" >
+    </div>
+
+    <button type="submit" class="btn btn-success">Save Work Details</button>
+
+</div>
+
+</form>
+
+<script>
+
+    var source = "/rawschemegroupname";
+
+    $.ajax({
+
+            type: 'GET',
+
+            url: source,
+
+            contentType: "application/json",
+
+            dataType: 'json',
+
+            success: function (json) {
+
+                var arr = [];
+                console.log(json);
+
+                for(var i = 0; i < json.length; i++) {
+                    if(arr.indexOf(json[i]['scheme_group_name']) === -1) {
+                        arr.push(json[i]['scheme_group_name']);
+                    }
+                }
+                console.log(arr);
+
+             var $schemegroupname = $('.schemegrouppicker');
+
+                var htmlEO = $.map(arr, function(lcn){
+
+                    return '<option value="' + lcn + '">' + lcn + '</option>'
+
+                });
+
+                $schemegroupname.html(htmlEO);
+
+            },
+
+            error: function (e) {
+
+                alert("error");
+
+            }
+
+        });
+
+    function populateschemename() {
+
+         var scheme_group_name = document.getElementById('schemegroupname').value;
+
+          var source = "/rawschemename/"+scheme_group_name;
+
+           $.ajax({
+
+            type: 'GET',
+
+            url: source,
+
+            contentType: "application/json",
+
+            dataType: 'json',
+
+            success: function (json) {
+
+                var arr = [];
+
+                for(var i = 0; i < json.length; i++) {
+
+                    if(arr.indexOf(json[i]['scheme_name']) === -1) {
+
+                        arr.push(json[i]['scheme_name']);
+
+                    }
+                }
+             var $schemename = $('.schemepicker');
+
+                var htmlEO = $.map(arr, function(lcn){
+
+                    return '<option value="' + lcn + '">' + lcn + '</option>'
+
+                });
+
+                $schemename.html(htmlEO);
+
+            },
+
+            error: function (e) {
+
+                alert("error");
+
+            }
+        });
+    }
+
+    function populateworkgroupname() {
+
+         var scheme_group_name = document.getElementById('schemegroupname').value;
+
+         var scheme_name = document.getElementById('schemename').value;
+
+          var source = "/rawworkgroupname/"+scheme_group_name+"/"+scheme_name;
+
+           $.ajax({
+
+            type: 'GET',
+
+            url: source,
+
+            contentType: "application/json",
+
+            dataType: 'json',
+
+            success: function (json) {
+
+                var arr = [];
+
+                for(var i = 0; i < json.length; i++) {
+
+                    if(arr.indexOf(json[i]['work_group_name']) === -1) {
+
+                        arr.push(json[i]['work_group_name']);
+
+                    }
+                }
+             var $workgroupname = $('.workgrouppicker');
+
+                var htmlEO = $.map(arr, function(lcn){
+
+                    return '<option value="' + lcn + '">' + lcn + '</option>'
+
+                });
+
+                $workgroupname.html(htmlEO);
+
+            },
+
+            error: function (e) {
+
+                alert("error");
+
+            }
+        });
+    }
+
+     function populateworktypename() {
+
+         var scheme_group_name = document.getElementById('schemegroupname').value;
+
+         var scheme_name = document.getElementById('schemename').value;
+
+         var work_group_name = document.getElementById('workgroupname').value;
+
+          var source = "/rawworktype/"+scheme_group_name+"/"+scheme_name+"/"+work_group_name;
+
+           $.ajax({
+
+            type: 'GET',
+
+            url: source,
+
+            contentType: "application/json",
+
+            dataType: 'json',
+
+            success: function (json) {
+
+                var arr = [];
+
+                for(var i = 0; i < json.length; i++) {
+
+                    if(arr.indexOf(json[i]['work_type']) === -1) {
+
+                        arr.push(json[i]['work_type']);
+
+                    }
+                }
+             var $worktype = $('.worktypepicker');
+
+                var htmlEO = $.map(arr, function(lcn){
+
+                    return '<option value="' + lcn + '">' + lcn + '</option>'
+
+                });
+
+                $worktype.html(htmlEO);
+
+            },
+
+            error: function (e) {
+
+                alert("error");
+
+            }
+        });
+    }
+
+    var i=0;
+
+     function createNewStages() {
+
+         console.log(123)
+
+        var stg_det = $("#stageDetails");
+
+        stg_det.empty();
+
+        var stage_name = "sn"+i;
+
+        var stage_amount = "sa"+i;
+
+        var stage_start_date = "ssd"+i;
+
+        var stage_end_date = "sed"+i;
+
+        var total_stages = "ts"+i;
+
+        var stage_order_id = "soi"+i;
+
+        var row = $('<div style="display: flex; flex-direction: row; justify-content: space-around; align-items: center;"></div>')
+
+            .html(
+
+                '<div style="display: flex; flex-direction: column;">' +
+
+                '<label for='+stage_name+'>Stage Name</label>' +
+
+                '<input type="text" id='+stage_name+' name='+stage_name+'>' +
+
+                '</div>' +
+
+                '<div style="display: flex; flex-direction: column;">' +
+
+                '<label for='+stage_amount+'>Stage Amount</label>' +
+
+                '<input type="text" id='+stage_amount+' name='+stage_amount+'>' +
+
+                '</div>' +
+
+                '<div style="display: flex; flex-direction: column;">' +
+
+                '<label for='+stage_order_id+'>Stage Order Id</label>' +
+
+                '<input type="text" id='+stage_order_id+' name='+stage_order_id+'>' +
+
+                '</div>'+
+
+                '<div style="display: flex; flex-direction: column;">' +
+
+                '<label for='+stage_start_date+'>Stage Start Date</label>' +
+
+                '<input type="date" id='+stage_start_date+' name='+stage_start_date+'>' +
+
+                '</div>' +
+
+                '<div style="display: flex; flex-direction: column;">' +
+
+                '<label for='+stage_end_date+'>Stage End Date</label>' +
+
+                '<input type="date" id='+stage_end_date+' name='+stage_end_date+'>' +
+
+                '</div>'
+
+            );
+
+        stg_det.append(row);
+
+        i++
+
+    }
+
+     function addAnotherStage() {
+
+         console.log(123);
+
+        var stage_name = "sn"+i;
+
+        var stage_amount = "sa"+i;
+
+        var stage_start_date = "ssd"+i;
+
+        var stage_end_date = "sed"+i;
+
+        var total_stages = "ts"+i;
+
+        var stage_order_id = "soi"+i;
+
+        var row = $('<div style="display: flex; flex-direction: row; justify-content: space-around; align-items: center;"></div>')
+
+            .html(
+
+                '<div style="display: flex; flex-direction: column;">' +
+
+                '<input type="text" id='+stage_name+' name='+stage_name+'>' +
+
+                '</div>' +
+
+                '<div style="display: flex; flex-direction: column;">' +
+
+                '<input type="text" id='+stage_amount+' name='+stage_amount+'>' +
+
+                '</div>' +
+
+                '<div style="display: flex; flex-direction: column;">' +
+
+                '<input type="text" id='+stage_order_id+' name='+stage_order_id+'>' +
+
+                '</div>'+
+
+                '<div style="display: flex; flex-direction: column;">' +
+
+                '<input type="date" id='+stage_start_date+' name='+stage_start_date+'>' +
+
+                '</div>' +
+
+                '<div style="display: flex; flex-direction: column;">' +
+
+                '<input type="date" id='+stage_end_date+' name='+stage_end_date+'>' +
+
+                '</div>'
+
+            );
+
+          $("#stageDetails").append(row);
+
+        i++;
+
+    }
+
+</script>
+
+{% endblock %}

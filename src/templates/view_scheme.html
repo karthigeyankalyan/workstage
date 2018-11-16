@@ -1,0 +1,134 @@
+{% extends "post_login_HQ.html" %}
+{% block content %}
+
+
+    <div id="input">
+
+         <label style="flex: 4" for="Search">Search by Work Type</label>
+        <input id="Search" type="text" onkeyup="myFunction()" name="Search" style="display: block; width: 100%">
+
+    </div>
+
+
+    <div id="SchemeList">
+
+    </div>
+
+<script>
+
+      var source = "/ViewAllSchemes"
+
+      $.ajax({
+
+          type: 'GET',
+
+          url: source,
+
+          contentType: "application/json",
+
+          dataType: 'json',
+
+          success: function (json) {
+
+              {
+                  console.log(json);
+
+                  $("#SchemeDetails").find("tbody").empty();
+
+                  var tbl = $("<table class='table table-bordered table-dark' id='SchemeDetails'/>");
+
+                  $("#SchemeList").append(tbl);
+
+                  var hr = "<tr>";
+
+                  var th1 = "<th style='text-align:center;vertical-align:middle'>" + "Scheme Group Name" + "</th>";
+
+                  var th2 = "<th style='text-align:center;vertical-align:middle'>" + "Scheme Name" + "</th>";
+
+                  var th3 = "<th style='text-align:center;vertical-align:middle'>" + "Work Group Name" + "</th>";
+
+                  var th4 = "<th style='text-align:center;vertical-align:middle'>" + "Work Type" + "</th>";
+
+                  $("#SchemeDetails").append(hr + th1 + th2 + th3 + th4);
+
+                  for (var j = 0; j < json.length; j++) {
+
+                      {
+
+                          var url = '/updatescheme/' + json[j]['_id'];
+
+                          var row = $('<tr></tr>').html(
+
+                              '<td>'+  json[j]["scheme_group_name"] + '</td>' +
+
+                              '<td>' + json[j]["scheme_name"] + '</td>' +
+
+                              '<td>' + json[j]["work_group_name"] + '</td>' +
+
+                              '<td>' + json[j]["work_type"] + '</td>' +
+
+                              '<td><button><a href="' + url + '">Update Scheme</a></button></td>');
+
+                          $("#SchemeDetails").append(row);
+
+                      }
+
+                  }
+
+
+              }
+
+          },
+
+          error: function (e) {
+
+              alert("error");
+
+          }
+
+      });
+
+
+      function myFunction() {
+
+          var input, filter, table, tr, td, i;
+
+          input = document.getElementById("Search");
+
+          filter = input.value.toUpperCase();
+
+          table = document.getElementById("SchemeList");
+
+          tr = table.getElementsByTagName("tr");
+
+          console.log(tr.length);
+
+          for (i = 0; i < tr.length; i++) {
+
+              td = tr[i].getElementsByTagName("td")[3];
+
+              if (td) {
+
+                  if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+
+                      tr[i].style.display = "";
+
+                  } else {
+
+                      tr[i].style.display = "none";
+
+                  }
+
+              }
+
+          }
+
+
+
+  }
+
+</script>
+
+
+
+{% endblock %}
