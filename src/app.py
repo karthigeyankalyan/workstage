@@ -1,9 +1,6 @@
 from datetime import datetime
-
 from datetime import timedelta
-
 import pymongo
-
 from bson import json_util
 
 from flask import Flask, render_template, request, session, json, abort
@@ -74,7 +71,6 @@ def profile():
 
 
 @app.route('/authorize/login', methods=['POST'])
-
 def login_user():
 
     email = request.form['email']
@@ -93,7 +89,6 @@ def login_user():
 
             return render_template('profile_HQ.html', user=user)
 
-
         else:
 
             return render_template('profile_blocks.html', user=user)
@@ -102,8 +97,8 @@ def login_user():
 
         return render_template('login_fail.html')
 
-@app.route('/authorize/register', methods=['POST'])
 
+@app.route('/authorize/register', methods=['POST'])
 def register_user():
 
     email = request.form['email']
@@ -128,8 +123,8 @@ def register_user():
 
         return render_template('profile_blocks.html', user=user)
 
-@app.route('/add_work/<string:user_id>', methods=['POST', 'GET'])
 
+@app.route('/add_work/<string:user_id>', methods=['POST', 'GET'])
 def work_form(user_id):
 
     email = session['email']
@@ -1430,8 +1425,8 @@ def get_work_type_second():
 
     return completed_intents
 
-@app.route('/Deadline_violation_stages')
 
+@app.route('/Deadline_violation_stages')
 def Deadline_violation_stages():
 
     email = session['email']
@@ -1439,15 +1434,14 @@ def Deadline_violation_stages():
     user = User.get_by_email(email)
 
     if email is not None:
-
-              return render_template('deadline_violation_stages_sheet.html', user=user)
+            return render_template('deadline_violation_stages_sheet.html', user=user)
 
     else:
 
         return render_template('login_fail.html', user=user)
 
-@app.route('/DeadlineViolationStagesReport')
 
+@app.route('/DeadlineViolationStagesReport')
 def deadline_violation_stages_report():
     stage = []
     d = datetime.today() - timedelta(days=30)

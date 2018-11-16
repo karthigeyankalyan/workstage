@@ -2,20 +2,14 @@ import uuid
 
 from datetime import datetime
 
-
-
 from src.common.database import Database
-
-
 
 
 class Stage(object):
 
 
-
     def __init__(self, stage_name, stage_order_id, amount, user_name, user_id, stage_status= 'Open', work_id=None, start_date=None,
-
-                 end_date=None, total_stages=None, _id=None):
+                 end_date=None, total_stages=None, _id=None, work_name=None):
 
 
 
@@ -41,8 +35,6 @@ class Stage(object):
 
             self.end_date = None
 
-
-
         self.stage_name = stage_name
 
         self.stage_order_id = stage_order_id
@@ -54,6 +46,9 @@ class Stage(object):
         self.total_stages = total_stages
 
         self.stage_status = stage_status
+
+        self.work_name = work_name
+
         self.user_id = user_id
 
         self.user_name = user_name
@@ -80,7 +75,10 @@ class Stage(object):
 
                                 user_name=user_name, total_stages=total_stages, stage_status=stage_status)
 
+    @classmethod
+    def update_work_name(cls, work_name ,work_id):
 
+        Database.update_current_stage(collection='stages', query={'work_id': work_id}, work_name=work_name)
 
     def json(self):
 
@@ -99,6 +97,8 @@ class Stage(object):
             'total_stages': self.total_stages,
 
             'work_id': self.work_id,
+
+            'work_name': self.work_name,
 
             'stage_status': self.stage_status,
 
@@ -123,9 +123,6 @@ class Stage(object):
 
 
     @classmethod
-
     def find_by_district(cls, blocks):
-
         intent = Database.find(collection='accounts', query={'blocks': blocks})
-
         return [cls(**inten) for inten in intent]

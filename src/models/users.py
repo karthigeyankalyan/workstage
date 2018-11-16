@@ -7,7 +7,7 @@ from src.common.database import Database
 
 class User(object):
 
-    def __init__(self, email, password, username, designation, block, department, _id=None):
+    def __init__(self, email, password, username, designation, block, _id=None):
 
         self.email = email
 
@@ -18,7 +18,6 @@ class User(object):
         self.designation = designation
 
         self.block = block
-        self.department = department
 
         self._id = uuid.uuid4().hex if _id is None else _id
 
