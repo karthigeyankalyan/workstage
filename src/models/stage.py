@@ -54,7 +54,6 @@ class Stage(object):
         self.total_stages = total_stages
 
         self.stage_status = stage_status
-
         self.user_id = user_id
 
         self.user_name = user_name
