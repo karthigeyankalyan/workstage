@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="27383461-c1be-45aa-9523-c3ffc2154155" name="Default Changelist" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/models/stage.py" afterPath="$PROJECT_DIR$/src/models/stage.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/common/database.py" afterPath="$PROJECT_DIR$/src/common/database.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -52,7 +52,7 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="stage.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="stage.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/models/stage.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="153">
@@ -159,6 +159,16 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="database.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/common/database.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="408">
+              <caret line="24" column="0" lean-forward="false" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="blockwise_summary_sheet.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/templates/blockwise_summary_sheet.html">
           <provider selected="true" editor-type-id="text-editor">
@@ -186,18 +196,6 @@
                 <marker date="1542375438651" expanded="true" signature="2977:3016" ph="..." />
                 <marker date="1542375438651" expanded="true" signature="3087:3126" ph="..." />
                 <marker date="1542375438651" expanded="true" signature="3195:3234" ph="..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="app.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/app.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="341">
-              <caret line="1442" column="74" lean-forward="false" selection-start-line="1442" selection-start-column="38" selection-end-line="1442" selection-end-column="74" />
-              <folding>
-                <element signature="e#0#29#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -249,7 +247,6 @@
       <list>
         <option value="$PROJECT_DIR$/src/common/requirements.txt" />
         <option value="$PROJECT_DIR$/src/requirements.txt" />
-        <option value="$PROJECT_DIR$/src/common/database.py" />
         <option value="$PROJECT_DIR$/src/templates/home.html" />
         <option value="$PROJECT_DIR$/src/templates/update_stage_form.html" />
         <option value="$PROJECT_DIR$/src/templates/update_stage_from_blocks.html" />
@@ -267,6 +264,7 @@
         <option value="$PROJECT_DIR$/src/templates/blockwise_summary_sheet.html" />
         <option value="$PROJECT_DIR$/src/templates/blockwise_summary_sheet_blocks.html" />
         <option value="$PROJECT_DIR$/src/models/stage.py" />
+        <option value="$PROJECT_DIR$/src/common/database.py" />
       </list>
     </option>
   </component>
@@ -365,6 +363,24 @@
               <option name="myItemType" value="" />
             </PATH_ELEMENT>
             <PATH_ELEMENT USER_OBJECT="src">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="WorkStage">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="src">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="common">
               <option name="myItemId" value="" />
               <option name="myItemType" value="" />
             </PATH_ELEMENT>
@@ -929,14 +945,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/common/database.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="35" column="0" lean-forward="false" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/templates/departmentwise_summary_sheet.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="306">
@@ -1103,6 +1111,14 @@
           <folding>
             <marker date="1542376447613" expanded="true" signature="560:1156" ph="..." />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/common/database.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="408">
+          <caret line="24" column="0" lean-forward="false" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
