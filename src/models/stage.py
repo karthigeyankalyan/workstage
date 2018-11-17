@@ -9,6 +9,7 @@ class Stage(object):
 
 
     def __init__(self, stage_name, stage_order_id, amount, user_name, user_id, stage_status= 'Open', work_id=None, start_date=None,
+
                  end_date=None, total_stages=None, _id=None, work_name=None):
 
 
@@ -78,7 +79,7 @@ class Stage(object):
     @classmethod
     def update_work_name(cls, work_name ,work_id):
 
-        Database.update_current_stage(collection='stages', query={'work_id': work_id}, work_name=work_name)
+        Database.update_work_name(collection='stages', query={'work_id': work_id}, work_name=work_name)
 
     def json(self):
 
@@ -123,6 +124,9 @@ class Stage(object):
 
 
     @classmethod
+
     def find_by_district(cls, blocks):
+
         intent = Database.find(collection='accounts', query={'blocks': blocks})
+
         return [cls(**inten) for inten in intent]
