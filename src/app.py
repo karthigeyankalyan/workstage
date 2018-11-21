@@ -1,6 +1,9 @@
 from datetime import datetime
+
 from datetime import timedelta
+
 import pymongo
+
 from bson import json_util
 
 from flask import Flask, render_template, request, session, json, abort
@@ -71,6 +74,7 @@ def profile():
 
 
 @app.route('/authorize/login', methods=['POST'])
+
 def login_user():
 
     email = request.form['email']
@@ -89,6 +93,7 @@ def login_user():
 
             return render_template('profile_HQ.html', user=user)
 
+
         else:
 
             return render_template('profile_blocks.html', user=user)
@@ -97,8 +102,8 @@ def login_user():
 
         return render_template('login_fail.html')
 
-
 @app.route('/authorize/register', methods=['POST'])
+
 def register_user():
 
     email = request.form['email']
@@ -123,8 +128,8 @@ def register_user():
 
         return render_template('profile_blocks.html', user=user)
 
-
 @app.route('/add_work/<string:user_id>', methods=['POST', 'GET'])
+
 def work_form(user_id):
 
     email = session['email']
@@ -489,6 +494,20 @@ def update_stage(_id):
                 for result_object in app[0:1]:
                     stage_second_name = result_object['stage_name']
                     Work.update_current_stage(work_id=work_id, stage_name=stage_second_name, stage_order_id=stage_order_id)
+
+            else:
+
+                var = int(stage_order_id)
+
+                app = Database.find("stages", {"$and": [{"work_id": work_id}, {"stage_order_id": str(var)}]})
+
+                stage_second_name = None
+
+                for result_object in app[0:1]:
+                    stage_second_name = result_object['stage_name']
+                    var = int(stage_order_id)-1
+                    Work.update_current_stage(work_id=work_id, stage_name=stage_second_name,
+                                              stage_order_id=str(var))
 
             Stage.update_stage(amount=amount, stage_name=stage_name,
 
@@ -1425,8 +1444,8 @@ def get_work_type_second():
 
     return completed_intents
 
-
 @app.route('/Deadline_violation_stages')
+
 def Deadline_violation_stages():
 
     email = session['email']
@@ -1434,14 +1453,15 @@ def Deadline_violation_stages():
     user = User.get_by_email(email)
 
     if email is not None:
-            return render_template('deadline_violation_stages_sheet.html', user=user)
+
+              return render_template('deadline_violation_stages_sheet.html', user=user)
 
     else:
 
         return render_template('login_fail.html', user=user)
 
-
 @app.route('/DeadlineViolationStagesReport')
+
 def deadline_violation_stages_report():
     stage = []
     d = datetime.today() - timedelta(days=30)
