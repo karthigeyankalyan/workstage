@@ -1527,10 +1527,10 @@ def preview_image(_id):
     user = User.get_by_email(session['email'])
 
     if user.designation == 'HQ Staff':
-        return render_template('road_image_display.html', images=image)
+        return render_template('road_image_display.html', images=image, user=user)
 
     else:
-        return render_template('road_image_display_blocks.html', images=image)
+        return render_template('road_image_display_blocks.html', images=image, user=user)
 
 
 @app.route('/panchayats/<string:block>')
