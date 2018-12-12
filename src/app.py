@@ -1,10 +1,17 @@
+import os
 from datetime import datetime
 
 from datetime import timedelta
 
 import pymongo
 
+import codecs
+
+import gridfs
+
 from bson import json_util
+
+from bson.objectid import ObjectId
 
 from flask import Flask, render_template, request, session, json, abort
 
@@ -101,8 +108,9 @@ def login_user():
     else:
 
         return render_template('login_fail.html')
-
+'Dindugul'
 @app.route('/authorize/register', methods=['POST'])
+
 def register_user():
 
     email = request.form['email']
@@ -160,7 +168,7 @@ def work_form(user_id):
             user_name = user.username
 
             work = Work(amount=amount, block=block, scheme_group_name = scheme_group_name, scheme_name=scheme_name,
-                        work_group_name=work_group_name, work_type=work_type,
+                        work_group_name=work_group_name, work_type=work_type, panchayat=panchayat, habitation=habitation,
                         total_stages=total_stages, start_date=start_date,
                         user_id=user_id, user_name=user_name, work_status="Open", work_name=work_name,
                         end_date=end_date)
@@ -213,6 +221,7 @@ def work_form(user_id):
     else:
 
         return render_template('login_fail.html')
+
 
 @app.route('/add_scheme/<string:user_id>', methods=['POST', 'GET'])
 
@@ -288,6 +297,10 @@ def update_work(work_id):
 
             total_stages = request.form['totalstages']
 
+            panchayat = request.form['panchayat']
+
+            habitation = request.form['habitation']
+
             start_date = request.form['startdate']
 
             end_date = request.form['enddate']
@@ -318,7 +331,7 @@ def update_work(work_id):
 
             Work.update_work(amount=amount, block=block, amount_spent = amount_spent,  scheme_group_name = scheme_group_name,
 
-                        scheme_name=scheme_name,
+                        scheme_name=scheme_name, panchayat=panchayat, habitation=habitation,
 
                         work_group_name=work_group_name, work_type=work_type,
 
@@ -494,12 +507,22 @@ def update_stage(_id):
                     Work.update_current_stage(work_id=work_id, stage_name=stage_second_name,
                                               stage_order_id=str(var))
 
+            print(request.files["Image_upload"])
+            for file in request.files.getlist("Image_upload"):
+                filename = file.filename
+                URI = "mongodb://127.0.0.1:27017"
+                client = pymongo.MongoClient(URI)
+                DATABASE = client['Dindugul']
+                fs = gridfs.GridFS(DATABASE)
+                #            print(file)
+                fileid = fs.put(file, filename=filename)
+                #            fileid = fs.put(request.files['Image_upload'].read(), filename=filename)
+
+                DATABASE['road_images'].insert_one({"Image_upload": filename, "fileid": fileid, "stageid": _id})
+
             Stage.update_stage(amount=amount, stage_name=stage_name,
-
                         stage_order_id=stage_order_id, total_stages=total_stages, start_date=start_date,
-
                         user_id=user_id, user_name=user_name, _id =_id, work_id=work_id, stage_status=stage_status,
-
                         end_date=end_date)
 
             if user.designation == 'HQ Staff':
@@ -1327,46 +1350,21 @@ def get_scheme_group_name():
 
     return completed_intents
 
-
 @app.route('/rawschemename/<string:scheme_group_name>')
+
 def get_scheme_name(scheme_group_name):
 
     district_intents_array = []
+
     district_intents = Database.find("schemes", {"scheme_group_name" : scheme_group_name})
+
     for intent in district_intents:
+
         district_intents_array.append(intent)
 
     completed_intents = json.dumps(district_intents_array, default=json_util.default)
 
     return completed_intents
-
-
-@app.route('/panchayats/<string:block>')
-def get_panchayat_name(block):
-
-    district_intents_array = []
-    district_intents = Database.find("panchayats", {"Block Name": block})
-    for intent in district_intents:
-        district_intents_array.append(intent)
-
-    completed_intents = json.dumps(district_intents_array, default=json_util.default)
-
-    return completed_intents
-
-
-@app.route('/habitations/<string:block>/<string:panchayat>')
-def get_habitation_name(block, panchayat):
-
-    district_intents_array = []
-    district_intents = Database.find("panchayats", {"$and": [{"Block Name": block},
-                                                             {"Village Panchayats Name": panchayat}]})
-    for intent in district_intents:
-        district_intents_array.append(intent)
-
-    completed_intents = json.dumps(district_intents_array, default=json_util.default)
-
-    return completed_intents
-
 
 @app.route('/rawworkgroupname/<string:scheme_group_name>/<string:scheme_name>')
 
@@ -1375,7 +1373,8 @@ def get_work_group_name(scheme_group_name, scheme_name):
     district_intents_array = []
 
     district_intents = Database.find("schemes", {"$and": [{"scheme_group_name": scheme_group_name},
-                                                          {"scheme_name": scheme_name}]})
+
+                                                        {"scheme_name": scheme_name}]})
 
     for intent in district_intents:
 
@@ -1483,13 +1482,64 @@ def deadline_violation_stages_report():
 
     return single_stage
 
-# @app.before_request
 
-# def limit_remote_addr():
+@app.route('/viewimagestage/<string:_id>', methods=['POST', 'GET'])
+def preview_image(_id):
 
-#     if request.headers.getlist("X-Forwarded-For")[0] == '106.208.39.7':
+    URI = os.environ['MONGODB_URI']
+    DATABASE = None
 
-#         return abort(403)  # Forbidden
+    client = pymongo.MongoClient(Database.URI)
+    Database.DATABASE = client['heroku_thg5d5x0']
+
+    fid = ""
+    fs = gridfs.GridFS(DATABASE)
+
+    print(DATABASE['road_images'].find({'fileid': _id}))
+
+    for output_data1 in DATABASE['road_images'].find({'stageid': _id}):
+        fid = output_data1["fileid"]
+
+    output_data = fs.get(fid).read()
+
+    base64_data = codecs.encode(output_data, 'base64')
+    image = base64_data.decode('utf-8')
+
+    user = User.get_by_email(session['email'])
+
+    if user.designation == 'HQ Staff':
+        return render_template('road_image_display.html', images=image)
+
+    else:
+        return render_template('road_image_display_blocks.html', images=image)
+
+
+@app.route('/panchayats/<string:block>')
+def get_panchayat_name(block):
+
+    district_intents_array = []
+    district_intents = Database.find("panchayats", {"Block Name": block})
+    for intent in district_intents:
+        district_intents_array.append(intent)
+
+    completed_intents = json.dumps(district_intents_array, default=json_util.default)
+
+    return completed_intents
+
+
+@app.route('/habitations/<string:block>/<string:panchayat>')
+def get_habitation_name(block, panchayat):
+
+    district_intents_array = []
+    district_intents = Database.find("panchayats", {"$and": [{"Block Name": block},
+                                                             {"Village Panchayats Name": panchayat}]})
+    for intent in district_intents:
+        district_intents_array.append(intent)
+
+    completed_intents = json.dumps(district_intents_array, default=json_util.default)
+
+    return completed_intents
+
 
 if __name__ == '__main__':
     app.run(port=4065, debug=True)

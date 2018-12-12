@@ -1,0 +1,16 @@
+{% extends "post_login_blocks.html" %}
+{% block content %}
+
+<head>
+    <meta charset="UTF-8">
+    <title>Stages Image Display</title>
+</head>
+<body>
+
+<h4 style="text-align: left;">Image</h4>
+
+    <div>
+        <img src="data:image/jpg;base64,{{images}}" alt="">
+    </div>
+
+{% endblock %}

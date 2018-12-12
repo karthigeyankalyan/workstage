@@ -14,7 +14,7 @@
             <label for="Blocks">Work Blocks</label>
 
             <select class="form-control" id="Blocks" onchange="populateInformation(this)" name="Workblocks">
-                {% set nature = ['Kodaikanal', 'Vattalkundu', 'Palani', 'Attur', 'Nilakottai', 'Nattam', 'Dindugul', 'Dindugul-HQ', 'Reddiyarchairam', 'Shanarapatti', 'Vadamadurai', 'Thoppampatti', 'Oddanachatram', 'Vedasandur', 'Guziliamparai'] %}
+                {% set nature = ['DINDIGUL', 'DINDIGUL-HQ', 'ATHOOR', 'REDDIARCHATRAM', 'SHANARPATTI', 'NATHAM', 'NILAKOTTAI', 'BATLAGUNDU', 'PALANI', 'ODDANCHATRAM', 'THOPPAMPATTY', 'VEDASANDUR', 'VADAMADURAI', 'GUZILIAMPARAI', 'KODAIKANAL'] %}
 
                 {% for nat in nature %}
                 <option value= "{{nat}}">{{nat}}</option>"
@@ -356,7 +356,6 @@
 
 
 </script>
-
 
 
 {% endblock %}

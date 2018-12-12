@@ -2,8 +2,6 @@
 
 {% block content %}
 
-
-
 <div style="display: flex; flex-direction: column; justify-content: space-between; align-items: center;">
 
     <form id="getByDate" action="/Block_summary" method="post">
@@ -36,8 +34,7 @@
 
             <select class="form-control" id="block" name="block">
 
-                {% set categories = ['Kodaikanal', 'Vattalkundu', 'Palani', 'Attur', 'Nilakottai', 'Nattam', 'Dindugul', 'Dindugul-HQ', 'Reddiyarchairam', 'Shanarapatti', 'Vadamadurai', 'Thoppampatti', 'Oddanachatram', 'Vedasandur', 'Guziliamparai'] %}
-
+               {% set nature = ['DINDIGUL', 'DINDIGUL-HQ', 'ATHOOR', 'REDDIARCHATRAM', 'SHANARPATTI', 'NATHAM', 'NILAKOTTAI', 'BATLAGUNDU', 'PALANI', 'ODDANCHATRAM', 'THOPPAMPATTY', 'VEDASANDUR', 'VADAMADURAI', 'GUZILIAMPARAI', 'KODAIKANAL'] %}
                 {% for category in categories %}
 
                     <option value= "{{category}}">{{category}}</option>"

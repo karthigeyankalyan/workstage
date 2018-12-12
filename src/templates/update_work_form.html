@@ -13,6 +13,8 @@
 
             <div class="form-group" style="display: flex; flex-direction: column; align-items: center; justify-content: space-between;">
                 <label for="Blocks">Blocks</label>
+                <label for="panchayat">Panchayat</label>
+                <label for="habitation">Habitations</label>
                 <label for="startdate">Start Date</label>
                 <label for="enddate">End Date</label>
                 <label for="amount">Amount</label>
@@ -28,12 +30,14 @@
             </div>
 
             <div class="form-group" style="display: flex; flex-direction: column; align-items: center; justify-content: space-between;">
-                <select style="flex: 4" class="form-control" id="Blocks" name="Blocks">
-                    {% set nature = ['Kodaikanal', 'Vattalkundu', 'Palani', 'Attur', 'Nilakottai', 'Nattam', 'Dindugul', 'Dindugul-HQ', 'Reddiyarchairam', 'Shanarapatti', 'Vadamadurai', 'Thoppampatti', 'Oddanachatram', 'Vedasandur', 'Guziliamparai'] %}
+                <select style="flex: 4" class="form-control" id="Blocks" name="Blocks" onchange="populatePanchayat()">
+                    {% set nature = ['DINDIGUL', 'DINDIGUL-HQ', 'ATHOOR', 'REDDIARCHATRAM', 'SHANARPATTI', 'NATHAM', 'NILAKOTTAI', 'BATLAGUNDU', 'PALANI', 'ODDANCHATRAM', 'THOPPAMPATTY', 'VEDASANDUR', 'VADAMADURAI', 'GUZILIAMPARAI', 'KODAIKANAL'] %}
                     {% for nat in nature %}
                         <option value= "{{nat}}">{{nat}}</option>"
                     {% endfor %}
                 </select>
+                <select class="panchayatpicker" id="panchayat" name="panchayat" style="display: block; width: 100%" onclick="populateHabitation()" ></select>
+                <select class="habitationpicker" id="habitation" name="habitation" style="display: block; width: 100%"></select>
                 <input type="date" value="startdate" id="startdate" name="startdate">
                 <input type="date" value="enddate" id="enddate" name="enddate">
                 <input type="number" id="amount" name="amount">
@@ -149,6 +153,67 @@
 
                 alert("error");
 
+            }
+        });
+    }
+
+      function populatePanchayat() {
+         var block = document.getElementById('Blocks').value;
+         var source = "/panchayats/"+block;
+           $.ajax({
+
+            type: 'GET',
+            url: source,
+            contentType: "application/json",
+            dataType: 'json',
+            success: function (json) {
+
+                var arr = [];
+                for(var i = 0; i < json.length; i++) {
+                    if(arr.indexOf(json[i]['Village Panchayats Name']) === -1) {
+                        arr.push(json[i]['Village Panchayats Name']);
+                    }
+                }
+             var $schemename = $('.panchayatpicker');
+                var htmlEO = $.map(arr, function(lcn){
+                    return '<option value="' + lcn + '">' + lcn + '</option>'
+                });
+
+                $schemename.html(htmlEO);
+            },
+            error: function (e) {
+                alert("error");
+            }
+        });
+    }
+
+    function populateHabitation() {
+         var block = document.getElementById('Blocks').value;
+         var panchayat = document.getElementById('panchayat').value;
+         var source = "/habitations/"+block+"/"+panchayat;
+           $.ajax({
+
+            type: 'GET',
+            url: source,
+            contentType: "application/json",
+            dataType: 'json',
+            success: function (json) {
+
+                var arr = [];
+                for(var i = 0; i < json.length; i++) {
+                    if(arr.indexOf(json[i]['Habitation Name']) === -1) {
+                        arr.push(json[i]['Habitation Name']);
+                    }
+                }
+             var $schemename = $('.habitationpicker');
+                var htmlEO = $.map(arr, function(lcn){
+                    return '<option value="' + lcn + '">' + lcn + '</option>'
+                });
+
+                $schemename.html(htmlEO);
+            },
+            error: function (e) {
+                alert("error");
             }
         });
     }
@@ -274,6 +339,10 @@
 
                 document.getElementById("Blocks").value = json[0]["block"];
 
+                document.getElementById("panchayat").value = json[0]["panchayat"];
+
+                document.getElementById("habitation").value = json[0]["habitation"];
+
                 document.getElementById("workstatus").value = json[0]["work_status"];
 
                 document.getElementById("schemegroupname").value = json[0]["scheme_group_name"];
@@ -307,7 +376,6 @@
 
 
 </script>
-
 
 
 {% endblock %}
