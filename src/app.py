@@ -103,7 +103,6 @@ def login_user():
         return render_template('login_fail.html')
 
 @app.route('/authorize/register', methods=['POST'])
-
 def register_user():
 
     email = request.form['email']
@@ -145,39 +144,25 @@ def work_form(user_id):
         else:
 
             user = User.get_by_id(user_id)
-
             amount = request.form['amount']
-
             block = request.form['Blocks']
-
+            panchayat = request.form['panchayat']
+            habitation = request.form['habitation']
             total_stages = int(request.form['totalstages'])
-
             start_date = request.form['startdate']
-
             end_date = request.form['enddate']
-
             work_name = request.form['workname']
-
             scheme_group_name = request.form['schemegroupname']
-
             scheme_name = request.form['schemename']
-
             work_group_name = request.form['workgroupname']
-
             work_type = request.form['worktype']
-
             user_id = user_id
-
             user_name = user.username
 
             work = Work(amount=amount, block=block, scheme_group_name = scheme_group_name, scheme_name=scheme_name,
-
                         work_group_name=work_group_name, work_type=work_type,
-
                         total_stages=total_stages, start_date=start_date,
-
-                        user_id=user_id, user_name=user_name, work_status="Open", work_name = work_name,
-
+                        user_id=user_id, user_name=user_name, work_status="Open", work_name=work_name,
                         end_date=end_date)
 
             work.save_to_mongo()
@@ -1342,21 +1327,46 @@ def get_scheme_group_name():
 
     return completed_intents
 
-@app.route('/rawschemename/<string:scheme_group_name>')
 
+@app.route('/rawschemename/<string:scheme_group_name>')
 def get_scheme_name(scheme_group_name):
 
     district_intents_array = []
-
     district_intents = Database.find("schemes", {"scheme_group_name" : scheme_group_name})
-
     for intent in district_intents:
-
         district_intents_array.append(intent)
 
     completed_intents = json.dumps(district_intents_array, default=json_util.default)
 
     return completed_intents
+
+
+@app.route('/panchayats/<string:block>')
+def get_panchayat_name(block):
+
+    district_intents_array = []
+    district_intents = Database.find("panchayats", {"Block Name": block})
+    for intent in district_intents:
+        district_intents_array.append(intent)
+
+    completed_intents = json.dumps(district_intents_array, default=json_util.default)
+
+    return completed_intents
+
+
+@app.route('/habitations/<string:block>/<string:panchayat>')
+def get_habitation_name(block, panchayat):
+
+    district_intents_array = []
+    district_intents = Database.find("panchayats", {"$and": [{"Block Name": block},
+                                                             {"Village Panchayats Name": panchayat}]})
+    for intent in district_intents:
+        district_intents_array.append(intent)
+
+    completed_intents = json.dumps(district_intents_array, default=json_util.default)
+
+    return completed_intents
+
 
 @app.route('/rawworkgroupname/<string:scheme_group_name>/<string:scheme_name>')
 
@@ -1365,8 +1375,7 @@ def get_work_group_name(scheme_group_name, scheme_name):
     district_intents_array = []
 
     district_intents = Database.find("schemes", {"$and": [{"scheme_group_name": scheme_group_name},
-
-                                                        {"scheme_name": scheme_name}]})
+                                                          {"scheme_name": scheme_name}]})
 
     for intent in district_intents:
 

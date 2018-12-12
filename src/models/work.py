@@ -7,7 +7,7 @@ from src.common.database import Database
 class Work(object):
 
     def __init__(self, amount, work_name, user_id, user_name, block, scheme_group_name, scheme_name, work_group_name, work_type,
-                    work_status='Open', amount_spent=None, total_stages=None,
+                    work_status='Open', amount_spent=None, total_stages=None, habitation=None, panchayat=None,
                     start_date=None, end_date=None, work_id=None):
 
 
@@ -36,7 +36,8 @@ class Work(object):
 
 
         self.block = block
-
+        self.panchayat = panchayat
+        self.habitation = habitation
         self.amount = amount
 
         self.total_stages = total_stages
@@ -73,14 +74,10 @@ class Work(object):
                      user_id, user_name, work_status,):
 
         Database.update_work(collection='works', query={'work_id': work_id}, block=block,
-
-                                amount_spent = amount_spent, scheme_group_name=scheme_group_name, scheme_name = scheme_name,
-
-                                work_group_name=work_group_name, work_type=work_type,
-
-                                start_date=start_date, end_date=end_date, amount=amount, user_id=user_id,
-
-                                user_name=user_name, total_stages=total_stages, work_status=work_status, work_name = work_name)
+                             amount_spent = amount_spent, scheme_group_name=scheme_group_name, scheme_name = scheme_name,
+                             work_group_name=work_group_name, work_type=work_type,
+                             start_date=start_date, end_date=end_date, amount=amount, user_id=user_id,
+                             user_name=user_name, total_stages=total_stages, work_status=work_status, work_name = work_name)
 
     @classmethod
     def update_current_stage(cls, stage_name, stage_order_id, work_id):
@@ -94,6 +91,8 @@ class Work(object):
         return {
 
             'block': self.block,
+            'panchayat': self.panchayat,
+            'habitation': self.habitation,
 
             'amount': self.amount,
 

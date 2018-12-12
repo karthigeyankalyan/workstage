@@ -9,7 +9,6 @@ class Stage(object):
 
 
     def __init__(self, stage_name, stage_order_id, amount, user_name, user_id, stage_status= 'Open', work_id=None, start_date=None,
-
                  end_date=None, total_stages=None, _id=None, work_name=None):
 
 
