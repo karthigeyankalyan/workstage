@@ -28,7 +28,7 @@
 
             <div class="form-group" style="display: flex; flex-direction: column; align-items: center; justify-content: space-between;">
                 <select style="flex: 4" class="form-control" id="Blocks" name="Blocks" onchange="createNewStages()">
-                    {% set nature = ['Kodaikanal', 'Vattalkundu', 'Palani', 'Attur', 'Nilakottai', 'Nattam', 'Dindugul', 'Dindugul-HQ', 'Reddiyarchairam', 'Shanarapatti', 'Vadamadurai', 'Thoppampatti', 'Oddanachatram', 'Vedasandur', 'Guziliamparai'] %}
+                    {% set nature = ['DINDIGUL', 'ATHOOR', 'REDDIARCHATRAM', 'SHANARPATTI', 'NATHAM', 'NILAKOTTAI', 'BATLAGUNDU', 'PALANI', 'ODDANCHATRAM', 'THOPPAMPATTY', 'VEDASANDUR', 'VADAMADURAI', 'GUZILIAMPARAI', 'KODAIKANAL'] %}
                     {% for nat in nature %}
                         <option value= "{{nat}}">{{nat}}</option>"
                     {% endfor %}

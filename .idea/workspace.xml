@@ -2,10 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="27383461-c1be-45aa-9523-c3ffc2154155" name="Default Changelist" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app.py" afterPath="$PROJECT_DIR$/src/app.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/models/stage.py" afterPath="$PROJECT_DIR$/src/models/stage.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/models/work.py" afterPath="$PROJECT_DIR$/src/models/work.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/templates/add_work.html" afterPath="$PROJECT_DIR$/src/templates/add_work.html" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -66,24 +62,24 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="add_work.html" pinned="false" current-in-tab="false">
+      <file leaf-file-name="add_work.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/templates/add_work.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="149" column="0" lean-forward="false" selection-start-line="149" selection-start-column="0" selection-end-line="149" selection-end-column="0" />
+            <state relative-caret-position="272">
+              <caret line="150" column="0" lean-forward="false" selection-start-line="150" selection-start-column="0" selection-end-line="150" selection-end-column="0" />
               <folding>
-                <marker date="1544604893508" expanded="true" signature="10154:10241" ph="..." />
-                <marker date="1544604893508" expanded="true" signature="10302:10340" ph="..." />
-                <marker date="1544604893508" expanded="true" signature="10549:10587" ph="..." />
-                <marker date="1544604893508" expanded="true" signature="10804:10842" ph="..." />
-                <marker date="1544604893508" expanded="true" signature="11066:11104" ph="..." />
-                <marker date="1544604893508" expanded="true" signature="11337:11375" ph="..." />
-                <marker date="1544604893508" expanded="true" signature="11985:12072" ph="..." />
-                <marker date="1544604893508" expanded="true" signature="12133:12171" ph="..." />
-                <marker date="1544604893508" expanded="true" signature="12314:12352" ph="..." />
-                <marker date="1544604893508" expanded="true" signature="12499:12537" ph="..." />
-                <marker date="1544604893508" expanded="true" signature="12687:12725" ph="..." />
-                <marker date="1544604893508" expanded="true" signature="12880:12918" ph="..." />
+                <marker date="1544605631188" expanded="true" signature="10136:10223" ph="..." />
+                <marker date="1544605631188" expanded="true" signature="10284:10322" ph="..." />
+                <marker date="1544605631188" expanded="true" signature="10531:10569" ph="..." />
+                <marker date="1544605631188" expanded="true" signature="10786:10824" ph="..." />
+                <marker date="1544605631188" expanded="true" signature="11048:11086" ph="..." />
+                <marker date="1544605631188" expanded="true" signature="11319:11357" ph="..." />
+                <marker date="1544605631188" expanded="true" signature="11967:12054" ph="..." />
+                <marker date="1544605631188" expanded="true" signature="12115:12153" ph="..." />
+                <marker date="1544605631188" expanded="true" signature="12296:12334" ph="..." />
+                <marker date="1544605631188" expanded="true" signature="12481:12519" ph="..." />
+                <marker date="1544605631188" expanded="true" signature="12669:12707" ph="..." />
+                <marker date="1544605631188" expanded="true" signature="12862:12900" ph="..." />
               </folding>
             </state>
           </provider>
@@ -131,7 +127,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="database.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="database.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/common/database.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="85">
@@ -225,10 +221,10 @@
         <option value="$PROJECT_DIR$/src/templates/update_stage_from_blocks.html" />
         <option value="$PROJECT_DIR$/src/templates/post_login_blocks.html" />
         <option value="$PROJECT_DIR$/src/models/stage.py" />
-        <option value="$PROJECT_DIR$/src/templates/add_work.html" />
         <option value="$PROJECT_DIR$/src/app.py" />
         <option value="$PROJECT_DIR$/src/models/work.py" />
         <option value="$PROJECT_DIR$/src/common/database.py" />
+        <option value="$PROJECT_DIR$/src/templates/add_work.html" />
       </list>
     </option>
   </component>
@@ -593,7 +589,7 @@
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32605043" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32605043" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -997,53 +993,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/templates/register.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="51" column="0" lean-forward="false" selection-start-line="51" selection-start-column="0" selection-end-line="51" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/templates/update_stage_from_blocks.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="370">
-          <caret line="165" column="0" lean-forward="false" selection-start-line="165" selection-start-column="0" selection-end-line="165" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#29#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/templates/add_work.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="149" column="0" lean-forward="false" selection-start-line="149" selection-start-column="0" selection-end-line="149" selection-end-column="0" />
-          <folding>
-            <marker date="1544604893508" expanded="true" signature="10154:10241" ph="..." />
-            <marker date="1544604893508" expanded="true" signature="10302:10340" ph="..." />
-            <marker date="1544604893508" expanded="true" signature="10549:10587" ph="..." />
-            <marker date="1544604893508" expanded="true" signature="10804:10842" ph="..." />
-            <marker date="1544604893508" expanded="true" signature="11066:11104" ph="..." />
-            <marker date="1544604893508" expanded="true" signature="11337:11375" ph="..." />
-            <marker date="1544604893508" expanded="true" signature="11985:12072" ph="..." />
-            <marker date="1544604893508" expanded="true" signature="12133:12171" ph="..." />
-            <marker date="1544604893508" expanded="true" signature="12314:12352" ph="..." />
-            <marker date="1544604893508" expanded="true" signature="12499:12537" ph="..." />
-            <marker date="1544604893508" expanded="true" signature="12687:12725" ph="..." />
-            <marker date="1544604893508" expanded="true" signature="12880:12918" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/models/stage.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="119">
@@ -1084,6 +1033,16 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/common/database.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="6" column="0" lean-forward="false" selection-start-line="6" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#14#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/templates/post_login_blocks.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="102">
@@ -1092,12 +1051,49 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/common/database.py">
+    <entry file="file://$PROJECT_DIR$/src/templates/update_stage_from_blocks.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="6" column="0" lean-forward="false" selection-start-line="6" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+        <state relative-caret-position="17">
+          <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/templates/register.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="51" column="0" lean-forward="false" selection-start-line="51" selection-start-column="0" selection-end-line="51" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="370">
+          <caret line="165" column="0" lean-forward="false" selection-start-line="165" selection-start-column="0" selection-end-line="165" selection-end-column="0" />
           <folding>
-            <element signature="e#0#14#0" expanded="true" />
+            <element signature="e#0#29#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/templates/add_work.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="150" column="0" lean-forward="false" selection-start-line="150" selection-start-column="0" selection-end-line="150" selection-end-column="0" />
+          <folding>
+            <marker date="1544605631188" expanded="true" signature="10136:10223" ph="..." />
+            <marker date="1544605631188" expanded="true" signature="10284:10322" ph="..." />
+            <marker date="1544605631188" expanded="true" signature="10531:10569" ph="..." />
+            <marker date="1544605631188" expanded="true" signature="10786:10824" ph="..." />
+            <marker date="1544605631188" expanded="true" signature="11048:11086" ph="..." />
+            <marker date="1544605631188" expanded="true" signature="11319:11357" ph="..." />
+            <marker date="1544605631188" expanded="true" signature="11967:12054" ph="..." />
+            <marker date="1544605631188" expanded="true" signature="12115:12153" ph="..." />
+            <marker date="1544605631188" expanded="true" signature="12296:12334" ph="..." />
+            <marker date="1544605631188" expanded="true" signature="12481:12519" ph="..." />
+            <marker date="1544605631188" expanded="true" signature="12669:12707" ph="..." />
+            <marker date="1544605631188" expanded="true" signature="12862:12900" ph="..." />
           </folding>
         </state>
       </provider>
