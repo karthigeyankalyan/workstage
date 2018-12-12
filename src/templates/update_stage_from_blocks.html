@@ -1,8 +1,7 @@
 {% extends "post_login_blocks.html" %}
-
 {% block content %}
 
-<form id="new-intent" action="/updatestage/{{ _id }}" method="post">
+<form id="new-intent" action="/updatestage/{{ _id }}" method="post" enctype="multipart/form-data">
 
     <div style="display: flex; flex-direction: column; align-items: center; flex: 1; justify-content: space-around; margin-top: 10px">
         <div>
@@ -43,15 +42,18 @@
                      accept="image/jpg, image/jpeg"  >
     </div>
 
+        <div>
+            <button type="submit" class="btn btn-success">Save Stage Details</button>
+        </div>
+
     <div>&nbsp
     </div>
-    <label style="text-decoration: underline">Image Preview:-</label>
-    <div id="preview">
-        <button type="submit" class="btn btn-success">Save Stage Details</button>
+        <label style="text-decoration: underline">Image Preview:-</label>
+    <div id="preview"></div>
+    </div>
     </div>
 
-    </div>
-    </div>
+
 </form>
 
 <script>

@@ -7,9 +7,10 @@ from src.common.database import Database
 
 class User(object):
 
-    def __init__(self, email, password, username, designation, block, _id=None):
+    def __init__(self, email, password, username, designation, block, department=None, _id=None):
 
         self.email = email
+        self.department = None
 
         self.password = password
 
@@ -75,13 +76,13 @@ class User(object):
 
     @classmethod
 
-    def register(cls, email, password, username, designation, block):
+    def register(cls, email, password, username, designation, block, department):
 
         user = cls.get_by_email(email)
 
         if user is None:
 
-            new_user = User(email, password, username, designation, block)
+            new_user = User(email, password, username, designation, block, department)
 
             new_user.save_to_mongo()
 
@@ -122,6 +123,7 @@ class User(object):
             'username': self.username,
 
             'designation': self.designation,
+            'department': self.department,
 
             'block': self.block
 

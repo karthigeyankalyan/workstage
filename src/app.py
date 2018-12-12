@@ -108,7 +108,8 @@ def login_user():
     else:
 
         return render_template('login_fail.html')
-'Dindugul'
+
+
 @app.route('/authorize/register', methods=['POST'])
 
 def register_user():
@@ -123,7 +124,7 @@ def register_user():
 
     block = request.form['block']
 
-    User.register(email, password, username, designation, block)
+    User.register(email, password, username, designation, block, department=None)
 
     user = User.get_by_email(email)
 
@@ -515,7 +516,14 @@ def update_stage(_id):
                 DATABASE = None
 
                 client = pymongo.MongoClient(URI)
+
                 DATABASE = client['heroku_thg5d5x0']
+
+                # URI = "mongodb://127.0.0.1:27017"
+                #
+                # DATABASE = None
+                # client = pymongo.MongoClient(URI)
+                # DATABASE = client['Dindugul']
 
                 fs = gridfs.GridFS(DATABASE)
                 #            print(file)
@@ -1494,7 +1502,14 @@ def preview_image(_id):
     DATABASE = None
 
     client = pymongo.MongoClient(URI)
+
     DATABASE = client['heroku_thg5d5x0']
+
+    # URI = "mongodb://127.0.0.1:27017"
+    #
+    # DATABASE = None
+    # client = pymongo.MongoClient(URI)
+    # DATABASE = client['Dindugul']
 
     fid = ""
     fs = gridfs.GridFS(DATABASE)
