@@ -510,9 +510,13 @@ def update_stage(_id):
             print(request.files["Image_upload"])
             for file in request.files.getlist("Image_upload"):
                 filename = file.filename
-                URI = "mongodb://127.0.0.1:27017"
+
+                URI = os.environ['MONGODB_URI']
+                DATABASE = None
+
                 client = pymongo.MongoClient(URI)
-                DATABASE = client['Dindugul']
+                DATABASE = client['heroku_thg5d5x0']
+
                 fs = gridfs.GridFS(DATABASE)
                 #            print(file)
                 fileid = fs.put(file, filename=filename)
@@ -1489,8 +1493,8 @@ def preview_image(_id):
     URI = os.environ['MONGODB_URI']
     DATABASE = None
 
-    client = pymongo.MongoClient(Database.URI)
-    Database.DATABASE = client['heroku_thg5d5x0']
+    client = pymongo.MongoClient(URI)
+    DATABASE = client['heroku_thg5d5x0']
 
     fid = ""
     fs = gridfs.GridFS(DATABASE)
