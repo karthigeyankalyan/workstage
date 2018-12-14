@@ -30,7 +30,7 @@
             </div>
 
             <div class="form-group" style="display: flex; flex-direction: column; align-items: center; justify-content: space-between;">
-                <select style="flex: 4" class="form-control" id="Blocks" name="Blocks" onchange="populatePanchayat()">
+                <select style="flex: 4" class="form-control" id="Blocks" name="Blocks" onclick="populatePanchayat()">
                     {% set nature = ['DINDIGUL', 'DINDIGUL-HQ', 'ATHOOR', 'REDDIARCHATRAM', 'SHANARPATTI', 'NATHAM', 'NILAKOTTAI', 'BATLAGUNDU', 'PALANI', 'ODDANCHATRAM', 'THOPPAMPATTY', 'VEDASANDUR', 'VADAMADURAI', 'GUZILIAMPARAI', 'KODAIKANAL'] %}
                     {% for nat in nature %}
                         <option value= "{{nat}}">{{nat}}</option>"
@@ -376,6 +376,7 @@
 
 
 </script>
+
 
 
 {% endblock %}
