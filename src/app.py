@@ -183,31 +183,20 @@ def work_form(user_id):
                 print(total_stages)
 
                 stage_name_string = "sn" + str(i)
-
+                print(stage_name_string)
                 stage_amount_string = "sa" + str(i)
-
                 stage_order_id_string = "soi" + str(i)
-
                 stage_start_date_string = "ssd" + str(i)
-
                 stage_end_date_string = "sed" + str(i)
-
                 stage_name = request.form[stage_name_string]
-
                 stage_amount = request.form[stage_amount_string]
-
                 stage_order_id = request.form[stage_order_id_string]
-
                 stage_start_date = request.form[stage_start_date_string]
-
                 stage_end_date = request.form[stage_end_date_string]
-
                 work_id = work.work_id
 
                 application = Stage(stage_name=stage_name, start_date=stage_start_date,
-
                                     end_date=stage_end_date, amount=stage_amount, total_stages=total_stages, work_name=work_name,
-
                                     user_name=user_name, user_id=user_id, stage_order_id=stage_order_id, work_id = work_id)
 
                 application.save_to_mongo()
@@ -331,15 +320,10 @@ def update_work(work_id):
                                            datetime.now().time())
 
             Work.update_work(amount=amount, block=block, amount_spent = amount_spent,  scheme_group_name = scheme_group_name,
-
                         scheme_name=scheme_name, panchayat=panchayat, habitation=habitation,
-
                         work_group_name=work_group_name, work_type=work_type,
-
                         total_stages=total_stages, start_date=start_date,
-
                         user_id=user_id, user_name=user_name, work_id = work_id, work_status=work_status, work_name = work_name,
-
                         end_date=end_date)
 
             Stage.update_work_name(work_id=work_id, work_name=work_name)

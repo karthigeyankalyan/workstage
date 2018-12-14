@@ -68,16 +68,16 @@ class Work(object):
         Database.insert(collection='works', data=self.json())
 
     @classmethod
-
     def update_work(cls, work_name, work_id, block, start_date, end_date, amount, total_stages, amount_spent,
                     scheme_group_name, scheme_name, work_group_name, work_type,
-                     user_id, user_name, work_status,):
+                     user_id, user_name, work_status, panchayat, habitation):
 
         Database.update_work(collection='works', query={'work_id': work_id}, block=block,
                              amount_spent = amount_spent, scheme_group_name=scheme_group_name, scheme_name = scheme_name,
                              work_group_name=work_group_name, work_type=work_type,
                              start_date=start_date, end_date=end_date, amount=amount, user_id=user_id,
-                             user_name=user_name, total_stages=total_stages, work_status=work_status, work_name = work_name)
+                             user_name=user_name, total_stages=total_stages, work_status=work_status,
+                             work_name=work_name, panchayat=panchayat, habitation=habitation)
 
     @classmethod
     def update_current_stage(cls, stage_name, stage_order_id, work_id):

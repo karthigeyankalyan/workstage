@@ -14,17 +14,17 @@ class Database(object):
         client = pymongo.MongoClient(Database.URI)
         Database.DATABASE = client['heroku_thg5d5x0']
 
-    #URI = "mongodb://127.0.0.1:27017"
-
-    #DATABASE = None
-
-    #@staticmethod
-
-    #def initialize():
-
-     #     client = pymongo.MongoClient(Database.URI)
-
-      #    Database.DATABASE = client['Dindugul']
+    # URI = "mongodb://127.0.0.1:27017"
+    #
+    # DATABASE = None
+    #
+    # @staticmethod
+    #
+    # def initialize():
+    #
+    #      client = pymongo.MongoClient(Database.URI)
+    #
+    #      Database.DATABASE = client['Dindugul']
 
     @staticmethod
     def insert(collection, data):
@@ -66,35 +66,23 @@ class Database(object):
                                                                          'user_name' : user_name }}, True)
 
     @staticmethod
-    def update_work(collection, query, amount, start_date, end_date, block, total_stages,
-                    user_id, user_name, work_status, work_name, amount_spent, scheme_group_name, scheme_name, work_group_name, work_type,):
-
+    def update_work(collection, query, amount, start_date, end_date, block, total_stages, panchayat, habitation,
+                    user_id, user_name, work_status, work_name, amount_spent, scheme_group_name, scheme_name, work_group_name, work_type):
         return Database.DATABASE[collection].update_one(query, {'$set': {'amount': amount,
-
                                                                          'start_date': start_date,
-
                                                                          'end_date': end_date,
-
                                                                          'block': block,
-
+                                                                         'panchayat': panchayat,
+                                                                         'habitation': habitation,
                                                                          'total_stages': total_stages,
-
                                                                          'amount_spent': amount_spent,
-
                                                                          'work_status' : work_status,
-
                                                                          'user_id' : user_id,
-
                                                                          'user_name' : user_name,
-
                                                                          'work_name' : work_name,
-
                                                                          'scheme_group_name': scheme_group_name,
-
                                                                          'scheme_name': scheme_name,
-
                                                                          'work_group_name': work_group_name,
-
                                                                          'work_type': work_type}}, True)
 
     @staticmethod
