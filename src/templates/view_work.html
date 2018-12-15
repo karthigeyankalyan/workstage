@@ -77,15 +77,8 @@
 
                                     var url_2 = 'view_stage/' + json[j]['work_id'];
 
-                                    var row = $('<tr></tr>').html('<td>' + '1'
-
-//                                    moment(json[j]["start_date"]['$date']).format('YYYY-MM-DD')
-                                        + '</td>'
-                                        +
-
-                                      '<td>' + '2'
-//                                        moment(json[j]["end_date"]['$date']).format('YYYY-MM-DD')
-                                        + '</td>' +
+                                    var row = $('<tr></tr>').html('<td>' + moment(json[j]["start_date"]['$date']).format('YYYY-MM-DD') + '</td>'
+                                        + '<td>' + moment(json[j]["end_date"]['$date']).format('YYYY-MM-DD')+ '</td>' +
 
                                       '<td>' + json[j]["block"] + '</td>' +
 

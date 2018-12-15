@@ -15,15 +15,11 @@ class Database(object):
         Database.DATABASE = client['heroku_thg5d5x0']
 
     # URI = "mongodb://127.0.0.1:27017"
-    #
     # DATABASE = None
     #
     # @staticmethod
-    #
     # def initialize():
-    #
     #      client = pymongo.MongoClient(Database.URI)
-    #
     #      Database.DATABASE = client['Dindugul']
 
     @staticmethod

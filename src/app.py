@@ -269,72 +269,50 @@ def update_work(work_id):
             user = User.get_by_email(email)
 
             if user.designation == 'HQ Staff':
-
                    return render_template('update_work_form.html', user=user, work_id=work_id)
 
             else:
-
                    return render_template('update_work_form_blocks.html', user=user, work_id=work_id)
         else:
 
             user = User.get_by_email(email)
-
             amount = request.form['amount']
-
             block = request.form['Blocks']
-
             work_status = request.form['workstatus']
-
             total_stages = request.form['totalstages']
-
             panchayat = request.form['panchayat']
-
             habitation = request.form['habitation']
-
             start_date = request.form['startdate']
-
             end_date = request.form['enddate']
-
             work_name = request.form['workname']
-
             amount_spent = request.form['amountspent']
-
             scheme_group_name = request.form['schemegroupname']
-
             scheme_name = request.form['schemename']
-
             work_group_name = request.form['workgroupname']
-
             work_type = request.form['worktype']
-
             user_id = user._id
 
             user_name = user.username
 
             start_date = datetime.combine(datetime.strptime(start_date, '%Y-%m-%d').date(),
-
-                                            datetime.now().time())
+                                          datetime.now().time())
 
             end_date = datetime.combine(datetime.strptime(end_date, '%Y-%m-%d').date(),
+                                        datetime.now().time())
 
-                                           datetime.now().time())
-
-            Work.update_work(amount=amount, block=block, amount_spent = amount_spent,  scheme_group_name = scheme_group_name,
-                        scheme_name=scheme_name, panchayat=panchayat, habitation=habitation,
-                        work_group_name=work_group_name, work_type=work_type,
-                        total_stages=total_stages, start_date=start_date,
-                        user_id=user_id, user_name=user_name, work_id = work_id, work_status=work_status, work_name = work_name,
-                        end_date=end_date)
+            Work.update_work2(amount=amount, block=block, amount_spent=amount_spent,  scheme_group_name=scheme_group_name,
+                             scheme_name=scheme_name, panchayat=panchayat, habitation=habitation, work_group_name=work_group_name,
+                             work_type=work_type, total_stages=total_stages, start_date=start_date, user_id=user_id,
+                             user_name=user_name, work_id=work_id, work_status=work_status, work_name=work_name,
+                             end_date=end_date)
 
             Stage.update_work_name(work_id=work_id, work_name=work_name)
 
             if user.designation == 'HQ Staff':
-
-                   return render_template('application_added.html', user=user)
+                return render_template('application_added.html', user=user)
 
             else:
-
-                   return render_template('application_added_blocks.html', user=user)
+                return render_template('application_added_blocks.html', user=user)
 
     else:
 
@@ -342,7 +320,6 @@ def update_work(work_id):
 
 
 @app.route('/add_stage/<string:work_id>', methods=['POST', 'GET'])
-
 def add_stage(work_id):
 
     email = session['email']
