@@ -67,18 +67,6 @@ class Work(object):
                     scheme_group_name, scheme_name, work_group_name, work_type, user_id, user_name, work_status,
                     panchayat, habitation):
 
-        if start_date:
-            start_date = datetime.combine(datetime.strptime(start_date, '%Y-%m-%d').date(),
-                                          datetime.now().time())
-        else:
-            start_date = None
-
-        if end_date:
-            end_date = datetime.combine(datetime.strptime(end_date, '%Y-%m-%d').date(),
-                                        datetime.now().time())
-        else:
-            end_date = None
-
         Database.update_work(collection='works', query={'work_id': work_id}, block=block,
                              amount_spent = amount_spent, scheme_group_name=scheme_group_name, scheme_name = scheme_name,
                              work_group_name=work_group_name, work_type=work_type,
