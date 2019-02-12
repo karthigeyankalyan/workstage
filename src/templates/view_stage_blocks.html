@@ -62,10 +62,12 @@
 
                   var th8 = "<th style='text-align:center;vertical-align:middle'>" + "Update" + "</th>";
 
-                  var th9 = "<th style='text-align:center;vertical-align:middle'>" + "View Image" + "</th>";
+                  var th9 = "<th style='text-align:center;vertical-align:middle'>" + "Delete" + "</th>";
+
+                  var th10 = "<th style='text-align:center;vertical-align:middle'>" + "View Image" + "</th>";
 
 
-                  $("#StageDetails").append(hr + th1 + th2 + th3 + th5 + th6 + th7 + th8 + th9);
+                  $("#StageDetails").append(hr + th1 + th2 + th3 + th5 + th6 + th7 + th8 + th9 + th10);
 
                   for (var j = 0; j < json.length; j++) {
 
@@ -74,6 +76,8 @@
                           var url = '/updatestage/' + json[j]['_id'];
 
                           var url1 =  '/viewimagestage/' + json[j]['_id'];
+
+                          var url2 = '/deletestage/' + json[j]['_id'];
 
                           var row = $('<tr></tr>').html('<td>' +
 
@@ -90,6 +94,8 @@
                               '<td>' + json[j]["user_name"] + '</td>' +
 
                               '<td><button><a href="' + url + '">Update Stage</a></button></td>' +
+
+                              '<td><button><a href="' + url2 + '">Delete Stage</a></button></td>' +
 
                               '<td><button><a href="' + url1 + '">View Image</a></button></td>');
 
@@ -152,6 +158,7 @@
   }
 
 </script>
+
 
 
 {% endblock %}

@@ -12,11 +12,16 @@ class Work(object):
 
 
         if start_date:
+
             self.start_date = datetime.combine(datetime.strptime(start_date, '%Y-%m-%d').date(),
+
                                                  datetime.now().time())
+
         else:
 
             self.start_date = None
+
+
 
         if end_date:
 
@@ -63,16 +68,16 @@ class Work(object):
         Database.insert(collection='works', data=self.json())
 
     @classmethod
-    def update_work2(cls, work_name, work_id, block, start_date, end_date, amount, total_stages, amount_spent,
-                    scheme_group_name, scheme_name, work_group_name, work_type, user_id, user_name, work_status,
-                    panchayat, habitation):
+
+    def update_work(cls, work_name, work_id, block, start_date, end_date, amount, total_stages, amount_spent,
+                    scheme_group_name, scheme_name, work_group_name, work_type,panchayat,habitation,
+                     user_id, user_name, work_status,):
 
         Database.update_work(collection='works', query={'work_id': work_id}, block=block,
                              amount_spent = amount_spent, scheme_group_name=scheme_group_name, scheme_name = scheme_name,
-                             work_group_name=work_group_name, work_type=work_type,
+                             work_group_name=work_group_name, work_type=work_type, panchayat=panchayat, habitation=habitation,
                              start_date=start_date, end_date=end_date, amount=amount, user_id=user_id,
-                             user_name=user_name, total_stages=total_stages, work_status=work_status,
-                             work_name=work_name, panchayat=panchayat, habitation=habitation)
+                             user_name=user_name, total_stages=total_stages, work_status=work_status, work_name = work_name)
 
     @classmethod
     def update_current_stage(cls, stage_name, stage_order_id, work_id):
@@ -135,3 +140,8 @@ class Work(object):
         intent = Database.find(collection='works', query={'blocks': blocks})
 
         return [cls(**inten) for inten in intent]
+
+    @classmethod
+    def deletefrom_mongo(cls, work_id):
+
+        Database.delete_from_mongo(collection='works', query={'work_id': work_id})

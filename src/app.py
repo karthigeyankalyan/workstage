@@ -1,4 +1,3 @@
-import os
 from datetime import datetime
 
 from datetime import timedelta
@@ -108,8 +107,7 @@ def login_user():
     else:
 
         return render_template('login_fail.html')
-
-
+'Dindugul'
 @app.route('/authorize/register', methods=['POST'])
 
 def register_user():
@@ -124,7 +122,7 @@ def register_user():
 
     block = request.form['block']
 
-    User.register(email, password, username, designation, block, department=None)
+    User.register(email, password, username, designation, block)
 
     user = User.get_by_email(email)
 
@@ -183,20 +181,31 @@ def work_form(user_id):
                 print(total_stages)
 
                 stage_name_string = "sn" + str(i)
-                print(stage_name_string)
+
                 stage_amount_string = "sa" + str(i)
+
                 stage_order_id_string = "soi" + str(i)
+
                 stage_start_date_string = "ssd" + str(i)
+
                 stage_end_date_string = "sed" + str(i)
+
                 stage_name = request.form[stage_name_string]
+
                 stage_amount = request.form[stage_amount_string]
+
                 stage_order_id = request.form[stage_order_id_string]
+
                 stage_start_date = request.form[stage_start_date_string]
+
                 stage_end_date = request.form[stage_end_date_string]
+
                 work_id = work.work_id
 
                 application = Stage(stage_name=stage_name, start_date=stage_start_date,
+
                                     end_date=stage_end_date, amount=stage_amount, total_stages=total_stages, work_name=work_name,
+
                                     user_name=user_name, user_id=user_id, stage_order_id=stage_order_id, work_id = work_id)
 
                 application.save_to_mongo()
@@ -269,50 +278,77 @@ def update_work(work_id):
             user = User.get_by_email(email)
 
             if user.designation == 'HQ Staff':
+
                    return render_template('update_work_form.html', user=user, work_id=work_id)
 
             else:
+
                    return render_template('update_work_form_blocks.html', user=user, work_id=work_id)
         else:
 
             user = User.get_by_email(email)
+
             amount = request.form['amount']
+
             block = request.form['Blocks']
+
             work_status = request.form['workstatus']
+
             total_stages = request.form['totalstages']
+
             panchayat = request.form['panchayat']
+
             habitation = request.form['habitation']
+
             start_date = request.form['startdate']
+
             end_date = request.form['enddate']
+
             work_name = request.form['workname']
+
             amount_spent = request.form['amountspent']
+
             scheme_group_name = request.form['schemegroupname']
+
             scheme_name = request.form['schemename']
+
             work_group_name = request.form['workgroupname']
+
             work_type = request.form['worktype']
+
             user_id = user._id
 
             user_name = user.username
 
             start_date = datetime.combine(datetime.strptime(start_date, '%Y-%m-%d').date(),
-                                          datetime.now().time())
+
+                                            datetime.now().time())
 
             end_date = datetime.combine(datetime.strptime(end_date, '%Y-%m-%d').date(),
-                                        datetime.now().time())
 
-            Work.update_work2(amount=amount, block=block, amount_spent=amount_spent,  scheme_group_name=scheme_group_name,
-                             scheme_name=scheme_name, panchayat=panchayat, habitation=habitation, work_group_name=work_group_name,
-                             work_type=work_type, total_stages=total_stages, start_date=start_date, user_id=user_id,
-                             user_name=user_name, work_id=work_id, work_status=work_status, work_name=work_name,
-                             end_date=end_date)
+                                           datetime.now().time())
+
+            Work.update_work(amount=amount, block=block, amount_spent = amount_spent,  scheme_group_name = scheme_group_name,
+
+                        scheme_name=scheme_name, panchayat=panchayat, habitation=habitation,
+
+                        work_group_name=work_group_name, work_type=work_type,
+
+                        total_stages=total_stages, start_date=start_date,
+
+                        user_id=user_id, user_name=user_name, work_id = work_id, work_status=work_status, work_name = work_name,
+
+                        end_date=end_date)
 
             Stage.update_work_name(work_id=work_id, work_name=work_name)
 
             if user.designation == 'HQ Staff':
-                return render_template('application_added.html', user=user)
+
+                   return render_template('application_added.html', user=user)
 
             else:
-                return render_template('application_added_blocks.html', user=user)
+
+                   return render_template('application_added_blocks.html', user=user)
 
     else:
 
@@ -320,6 +356,7 @@ def update_work(work_id):
 
 
 @app.route('/add_stage/<string:work_id>', methods=['POST', 'GET'])
+
 def add_stage(work_id):
 
     email = session['email']
@@ -472,20 +509,9 @@ def update_stage(_id):
             print(request.files["Image_upload"])
             for file in request.files.getlist("Image_upload"):
                 filename = file.filename
-
-                URI = os.environ['MONGODB_URI']
-                DATABASE = None
-
+                URI = "mongodb://127.0.0.1:27017"
                 client = pymongo.MongoClient(URI)
-
-                DATABASE = client['heroku_thg5d5x0']
-
-                # URI = "mongodb://127.0.0.1:27017"
-                #
-                # DATABASE = None
-                # client = pymongo.MongoClient(URI)
-                # DATABASE = client['Dindugul']
-
+                DATABASE = client['Dindugul']
                 fs = gridfs.GridFS(DATABASE)
                 #            print(file)
                 fileid = fs.put(file, filename=filename)
@@ -1455,22 +1481,11 @@ def deadline_violation_stages_report():
 
     return single_stage
 
-
 @app.route('/viewimagestage/<string:_id>', methods=['POST', 'GET'])
 def preview_image(_id):
-
-    URI = os.environ['MONGODB_URI']
-    DATABASE = None
-
+    URI = "mongodb://127.0.0.1:27017"
     client = pymongo.MongoClient(URI)
-
-    DATABASE = client['heroku_thg5d5x0']
-
-    # URI = "mongodb://127.0.0.1:27017"
-    #
-    # DATABASE = None
-    # client = pymongo.MongoClient(URI)
-    # DATABASE = client['Dindugul']
+    DATABASE = client['Dindugul']
 
     fid = ""
     fs = gridfs.GridFS(DATABASE)
@@ -1485,14 +1500,7 @@ def preview_image(_id):
     base64_data = codecs.encode(output_data, 'base64')
     image = base64_data.decode('utf-8')
 
-    user = User.get_by_email(session['email'])
-
-    if user.designation == 'HQ Staff':
-        return render_template('road_image_display.html', images=image, user=user)
-
-    else:
-        return render_template('road_image_display_blocks.html', images=image, user=user)
-
+    return render_template('road_image_display.html', images=image)
 
 @app.route('/panchayats/<string:block>')
 def get_panchayat_name(block):
@@ -1506,6 +1514,29 @@ def get_panchayat_name(block):
 
     return completed_intents
 
+@app.route('/deletework/<string:work_id>')
+
+def deletework(work_id):
+
+        email = session['email']
+
+        user = User.get_by_email(email)
+
+        Work.deletefrom_mongo(work_id= work_id)
+
+        return render_template('deleted.html', user=user)
+
+@app.route('/deletestage/<string:_id>')
+
+def deletestage(_id):
+
+        email = session['email']
+
+        user = User.get_by_email(email)
+
+        Stage.deletefrom_mongo(_id= _id)
+
+        return render_template('deleted.html', user=user)
 
 @app.route('/habitations/<string:block>/<string:panchayat>')
 def get_habitation_name(block, panchayat):
@@ -1520,6 +1551,13 @@ def get_habitation_name(block, panchayat):
 
     return completed_intents
 
+# @app.before_request
+
+# def limit_remote_addr():
+
+#     if request.headers.getlist("X-Forwarded-For")[0] == '106.208.39.7':
+
+#         return abort(403)  # Forbidden
 
 if __name__ == '__main__':
     app.run(port=4065, debug=True)

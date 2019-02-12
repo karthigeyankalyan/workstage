@@ -8,7 +8,9 @@ from src.common.database import Database
 class Stage(object):
 
 
+
     def __init__(self, stage_name, stage_order_id, amount, user_name, user_id, stage_status= 'Open', work_id=None, start_date=None,
+
                  end_date=None, total_stages=None, _id=None, work_name=None):
 
 
@@ -120,7 +122,10 @@ class Stage(object):
 
         return cls(**Intent)
 
+    @classmethod
+    def deletefrom_mongo(cls, _id):
 
+        Database.delete_from_mongo(collection='stages', query={'_id': _id})
 
     @classmethod
 
