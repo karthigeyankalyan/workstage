@@ -4,6 +4,8 @@ from datetime import timedelta
 
 import pymongo
 
+import os
+
 import codecs
 
 import gridfs
@@ -509,9 +511,12 @@ def update_stage(_id):
             print(request.files["Image_upload"])
             for file in request.files.getlist("Image_upload"):
                 filename = file.filename
-                URI = "mongodb://127.0.0.1:27017"
-                client = pymongo.MongoClient(URI)
-                DATABASE = client['Dindugul']
+                URI = os.environ['MONGODB_URI']
+                #URI = "mongodb://127.0.0.1:27017"
+                client = pymongo.MongoClient(Database.URI)
+                #client = pymongo.MongoClient(URI)
+                DATABASE = client['heroku_thg5d5x0']
+                #DATABASE = client['Dindugul']
                 fs = gridfs.GridFS(DATABASE)
                 #            print(file)
                 fileid = fs.put(file, filename=filename)
@@ -1483,9 +1488,12 @@ def deadline_violation_stages_report():
 
 @app.route('/viewimagestage/<string:_id>', methods=['POST', 'GET'])
 def preview_image(_id):
-    URI = "mongodb://127.0.0.1:27017"
-    client = pymongo.MongoClient(URI)
-    DATABASE = client['Dindugul']
+    URI = os.environ['MONGODB_URI']
+    # URI = "mongodb://127.0.0.1:27017"
+    client = pymongo.MongoClient(Database.URI)
+    # client = pymongo.MongoClient(URI)
+    DATABASE = client['heroku_thg5d5x0']
+    # DATABASE = client['Dindugul']
 
     fid = ""
     fs = gridfs.GridFS(DATABASE)

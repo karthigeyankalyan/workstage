@@ -13,7 +13,7 @@
         <div id=" Workblocks">
             <label for="Blocks">Work Blocks</label>
             <select class="form-control" id="Blocks" onchange="populateInformation(this)" name="Workblocks">
-               {% set nature = ['DINDIGUL', 'DINDIGUL-HQ', 'ATHOOR', 'REDDIARCHATRAM', 'SHANARPATTI', 'NATHAM', 'NILAKOTTAI', 'BATLAGUNDU', 'PALANI', 'ODDANCHATRAM', 'THOPPAMPATTY', 'VEDASANDUR', 'VADAMADURAI', 'GUZILIAMPARAI', 'KODAIKANAL'] %}
+                {% set nature = ['DINDIGUL', 'DINDIGUL-HQ', 'ATHOOR', 'REDDIARCHATRAM', 'SHANARPATTI', 'NATHAM', 'NILAKOTTAI', 'BATLAGUNDU', 'PALANI', 'ODDANCHATRAM', 'THOPPAMPATTY', 'VEDASANDUR', 'VADAMADURAI', 'GUZILIAMPARAI', 'KODAIKANAL'] %}
 
                 {% for nat in nature %}
                 <option value= "{{nat}}">{{nat}}</option>"
@@ -29,7 +29,7 @@
 
 <script>
 
-     var source = "/ViewAllOngoingWorks";
+     var source = "/ViewAllDeadlineWorks";
 
         $.ajax({
 
@@ -45,7 +45,7 @@
             success: function (json) {
 
                 {
-                    console.log(json.length);
+                    console.log(json);
 
                         $("#WorkDetails").find("tbody").empty();
 
@@ -168,11 +168,12 @@
             }
         });
 
+
     function populateInformation(that) {
 
         block_value = that.value
 
-        var source = "/Ongoing" + block_value;
+        var source = "/Deadline" + block_value;
 
         $.ajax({
 
@@ -221,7 +222,7 @@
                     var th12 = "<th style='text-align:center;vertical-align:middle'>" + "View Stage" + "</th>";
 
 
-                    $("#WorkDetails").append(hr + th1 + th2 + th3 + th4 +  th6 + th7 + th8 + th9 + th10 + th11 + th12);
+                    $("#WorkDetails").append(hr + th1 + th2 + th3 + th4 + th6 + th7 + th8 + th9 + th10 + th11 + th12);
 
                     for (var j = 0; j < json.length; j++) {
 
@@ -347,12 +348,13 @@
 
             }
 
+        }
 
 
-    }
 
 
 </script>
+
 
 
 {% endblock %}
