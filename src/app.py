@@ -109,7 +109,7 @@ def login_user():
     else:
 
         return render_template('login_fail.html')
-'Dindugul'
+
 @app.route('/authorize/register', methods=['POST'])
 
 def register_user():
@@ -135,7 +135,7 @@ def register_user():
     else:
 
         return render_template('profile_blocks.html', user=user)
-
+    
 @app.route('/add_work/<string:user_id>', methods=['POST', 'GET'])
 
 def work_form(user_id):
