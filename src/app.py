@@ -124,7 +124,7 @@ def register_user():
 
     block = request.form['block']
 
-    User.register(email, password, username, designation, block)
+    User.register(email, password, username, designation, block, department=None)
 
     user = User.get_by_email(email)
 
