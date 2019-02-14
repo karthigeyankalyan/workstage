@@ -1517,7 +1517,10 @@ def preview_image(_id):
     base64_data = codecs.encode(output_data, 'base64')
     image = base64_data.decode('utf-8')
 
-    return render_template('road_image_display.html', images=image, user=user)
+    if user.designation == 'HQ Staff':
+        return render_template('road_image_display.html', images=image, user=user)
+    else:
+        return render_template('road_image_display_blocks.html', images=image, user=user)
 
 
 @app.route('/panchayats/<string:block>')
