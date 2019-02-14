@@ -511,12 +511,15 @@ def update_stage(_id):
             print(request.files["Image_upload"])
             for file in request.files.getlist("Image_upload"):
                 filename = file.filename
+
                 URI = os.environ['MONGODB_URI']
-                #URI = "mongodb://127.0.0.1:27017"
                 client = pymongo.MongoClient(Database.URI)
-                #client = pymongo.MongoClient(URI)
                 DATABASE = client['heroku_thg5d5x0']
-                #DATABASE = client['Dindugul']
+
+                # URI = "mongodb://127.0.0.1:27017"
+                # client = pymongo.MongoClient(URI)
+                # DATABASE = client['Dindugul']
+
                 fs = gridfs.GridFS(DATABASE)
                 #            print(file)
                 fileid = fs.put(file, filename=filename)
@@ -1472,8 +1475,8 @@ def Deadline_violation_stages():
 
         return render_template('login_fail.html', user=user)
 
-@app.route('/DeadlineViolationStagesReport')
 
+@app.route('/DeadlineViolationStagesReport')
 def deadline_violation_stages_report():
     stage = []
     d = datetime.today() - timedelta(days=30)
@@ -1486,13 +1489,19 @@ def deadline_violation_stages_report():
 
     return single_stage
 
+
 @app.route('/viewimagestage/<string:_id>', methods=['POST', 'GET'])
 def preview_image(_id):
     URI = os.environ['MONGODB_URI']
-    # URI = "mongodb://127.0.0.1:27017"
     client = pymongo.MongoClient(Database.URI)
-    # client = pymongo.MongoClient(URI)
     DATABASE = client['heroku_thg5d5x0']
+
+    email = session['email']
+
+    user = User.get_by_email(email)
+
+    # URI = "mongodb://127.0.0.1:27017"
+    # client = pymongo.MongoClient(URI)
     # DATABASE = client['Dindugul']
 
     fid = ""
@@ -1508,7 +1517,8 @@ def preview_image(_id):
     base64_data = codecs.encode(output_data, 'base64')
     image = base64_data.decode('utf-8')
 
-    return render_template('road_image_display.html', images=image)
+    return render_template('road_image_display.html', images=image, user=user)
+
 
 @app.route('/panchayats/<string:block>')
 def get_panchayat_name(block):
