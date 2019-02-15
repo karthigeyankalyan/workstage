@@ -13,7 +13,7 @@
 
      <div class="form-group" style="display: flex; flex-direction: column; align-items: center; justify-content: space-between;">
          <label for="schemename">Scheme name</label>
-         <select class="schemepicker" id="schemename" name="schemename" style="display: block; width: 100%" onmouseover="populateschemename()" onchange="populateInformation(this)" ></select>
+         <select class="schemepicker" id="schemename" name="schemename" style="display: block; width: 100%" onchange="populateInformation(this)" ></select>
      </div>
 
     <div id="WorkList">
@@ -24,7 +24,7 @@
 
 <script>
 
-
+        populateschemename();
 
         var source = "/ViewAllWorks/{{block}}";
 
