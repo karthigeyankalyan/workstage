@@ -881,13 +881,16 @@ def raw_demands_by_scheme_id(_id):
 
     return single_scheme
 
-@app.route('/WorkBySchemes/<string:scheme_value>')
 
+@app.route('/WorkBySchemes/<string:scheme_value>')
 def get_work_by_scheme(scheme_value):
 
     work = []
 
-    work_dict = Database.find("works", {"scheme_name": scheme_value})
+    if scheme_value == 'All':
+        work_dict = Database.find("works", {})
+    else:
+        work_dict = Database.find("works", {"scheme_name": scheme_value})
 
     for tran in work_dict:
 
@@ -897,8 +900,8 @@ def get_work_by_scheme(scheme_value):
 
     return single_work
 
-@app.route('/WorkBySchemes/<string:block>/<string:scheme_value>')
 
+@app.route('/WorkBySchemes/<string:block>/<string:scheme_value>')
 def get_work_by_scheme_block(block,scheme_value):
 
     work = []
@@ -1045,10 +1048,9 @@ def view_all_deadline_work():
 
     return single_work
 
+
 @app.route('/ViewAllDeadlineWorks/<string:block>')
-
 def view_all_deadline_work_blocks(block):
-
     work = []
 
     work_dict = Database.find("works", {"$and": [{"end_date": {"$lte": datetime.now()}}, {"block" : block},
