@@ -59,12 +59,15 @@
                           var th6 = "<th style='text-align:center;vertical-align:middle'>" + "Amount" + "</th>";
                           var th7 = "<th style='text-align:center;vertical-align:middle'>" + "Stage Progress" + "</th>";
                           var th8 = "<th style='text-align:center;vertical-align:middle'>" + "Stage Name" + "</th>";
+                           var th14 = "<th style='text-align:center;vertical-align:middle'>" + "Work ID" + "</th>";
+                            var th15 = "<th style='text-align:center;vertical-align:middle'>" + "Panchayats" + "</th>";
+                             var th16 = "<th style='text-align:center;vertical-align:middle'>" + "Habitations" + "</th>";
                           var th10 = "<th style='text-align:center;vertical-align:middle'>" + "Uploaded by" + "</th>";
                           var th11 = "<th style='text-align:center;vertical-align:middle'>" + "Update" + "</th>";
                           var th12 = "<th style='text-align:center;vertical-align:middle'>" + "Add Stage" + "</th>";
                           var th13 = "<th style='text-align:center;vertical-align:middle'>" + "View Stage" + "</th>";
 
-                        $("#WorkDetails").append(hr + th1 + th2 + th3 + th4 + th6 + th7 + th8 + th10 + th11+th12+th13);
+                        $("#WorkDetails").append(hr + th1 + th2 + th3 + th4 + th6 + th7 + th8 +th14 +th15 +th16 + th10 + th11 + th12+ th13);
 
                         for (var j = 0; j < json.length; j++) {
                               {
@@ -91,6 +94,12 @@
                                         '<td>' + "1" +"/" + json[j]["total_stages"] + '</td>' +
 
                                       '<td>' + "Yet to start" + '</td>' +
+
+                                       '<td>' + json[j]["work_id_custom"] + '</td>' +
+
+                                        '<td>' + json[j]["panchayat"] + '</td>' +
+
+                                             '<td>' + json[j]["habitation"] + '</td>' +
 
                                       '<td>' + json[j]["user_name"] + '</td>' +
 
@@ -124,6 +133,12 @@
                                         '<td>' + json[j]["stage_order_id"] +"/" + json[j]["total_stages"] + '</td>' +
 
                                       '<td>' + json[j]["stage_name"] + '</td>' +
+
+                                       '<td>' + json[j]["work_id_custom"] + '</td>' +
+
+                                        '<td>' + json[j]["panchayat"] + '</td>' +
+
+                                             '<td>' + json[j]["habitation"] + '</td>' +
 
                                       '<td>' + json[j]["user_name"] + '</td>' +
 
@@ -246,6 +261,12 @@
 
                           var th8 = "<th style='text-align:center;vertical-align:middle'>" + "Stage Name" + "</th>";
 
+                          var th14 = "<th style='text-align:center;vertical-align:middle'>" + "Work ID" + "</th>";
+
+                          var th15 = "<th style='text-align:center;vertical-align:middle'>" + "Panchayats" + "</th>";
+
+                          var th16 = "<th style='text-align:center;vertical-align:middle'>" + "Habitations" + "</th>";
+
                           var th10 = "<th style='text-align:center;vertical-align:middle'>" + "Uploaded by" + "</th>";
 
                           var th11 = "<th style='text-align:center;vertical-align:middle'>" + "Update" + "</th>";
@@ -254,7 +275,7 @@
 
                           var th13 = "<th style='text-align:center;vertical-align:middle'>" + "View Stage" + "</th>";
 
-                          $("#WorkDetails").append(hr + th1 + th2 + th3 + th4 + th6 + th7 + th8 + th10 + th11+th12+th13);
+                          $("#WorkDetails").append(hr + th1 + th2 + th3 + th4 + th6 + th7 + th8 +th14 +th15 +th16 +th10 + th11+th12+th13);
 
                           for (var j = 0; j < json.length; j++) {
 
@@ -281,6 +302,12 @@
                                       '<td>' + "1" + "/" + json[j]["total_stages"] + '</td>' +
 
                                       '<td>' + "Yet to start" + '</td>' +
+
+                                      '<td>' + json[j]["work_id_custom"] + '</td>' +
+
+                                      '<td>' + json[j]["panchayat"] + '</td>' +
+
+                                      '<td>' + json[j]["habitation"] + '</td>' +
 
                                       '<td>' + json[j]["user_name"] + '</td>' +
 
@@ -316,6 +343,12 @@
                                           '<td>' + json[j]["stage_order_id"] + "/" + json[j]["total_stages"] + '</td>' +
 
                                           '<td>' + json[j]["stage_name"] + '</td>' +
+
+                                           '<td>' + json[j]["work_id_custom"] + '</td>' +
+
+                                           '<td>' + json[j]["panchayat"] + '</td>' +
+
+                                           '<td>' + json[j]["habitation"] + '</td>' +
 
                                           '<td>' + json[j]["user_name"] + '</td>' +
 

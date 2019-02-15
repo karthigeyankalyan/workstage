@@ -1062,13 +1062,14 @@ def view_all_deadline_work_blocks(block):
 
     return single_work
 
-@app.route('/Blocks/<string:block_value>')
+@app.route('/Blocks/<string:block_value>/<string:scheme_name_value>')
 
-def get_work_by_blocks(block_value):
+def get_work_by_blocks(block_value, scheme_name_value):
 
     work = []
 
-    work_dict = Database.find("works", {"block": block_value})
+    work_dict = Database.find("works", {"$and": [{"block" : block_value},
+                                                 {"scheme_name": scheme_name_value}]})
 
     for tran in work_dict:
 

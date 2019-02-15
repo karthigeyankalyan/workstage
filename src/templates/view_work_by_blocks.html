@@ -22,6 +22,12 @@
         </div>
     </div>
 
+     <div class="form-group" style="display: flex; flex-direction: column; align-items: center; justify-content: space-between;">
+         <label for="schemename">Scheme name</label>
+         <select class="schemepicker" id="schemename" name="schemename" style="display: block; width: 100%" onmouseover="populateschemename()" onchange="populateInformation(this)" ></select>
+     </div>
+
+
     <div id="WorkList">
     </div>
 
@@ -72,6 +78,12 @@
 
                         var th8 = "<th style='text-align:center;vertical-align:middle'>" + "Stage Name" + "</th>";
 
+                        var th14 = "<th style='text-align:center;vertical-align:middle'>" + "Work ID" + "</th>";
+
+                        var th15 = "<th style='text-align:center;vertical-align:middle'>" + "Panchayats" + "</th>";
+
+                        var th16 = "<th style='text-align:center;vertical-align:middle'>" + "Habitations" + "</th>";
+
                         var th9 = "<th style='text-align:center;vertical-align:middle'>" + "Uploaded by" + "</th>";
 
                         var th10 = "<th style='text-align:center;vertical-align:middle'>" + "Update" + "</th>";
@@ -80,7 +92,7 @@
 
                         var th12 = "<th style='text-align:center;vertical-align:middle'>" + "View Stage" + "</th>";
 
-                        $("#WorkDetails").append(hr + th1 + th2 + th3 + th4 + th6 + th7 + th8 + th9 + th10 + th11+th12);
+                         $("#WorkDetails").append(hr + th1 + th2 + th3 + th4 + th6 + th7 + th8 + th14 + th15 + th16 + th9 + th10 + th11 + th12);
 
                         for (var j = 0; j < json.length; j++) {
 
@@ -108,6 +120,12 @@
                                         '<td>' + "1" +"/" + json[j]["total_stages"] + '</td>' +
 
                                       '<td>' + "Yet to start" + '</td>' +
+
+                                       '<td>' + json[j]["work_id_custom"] + '</td>' +
+
+                                        '<td>' + json[j]["panchayat"] + '</td>' +
+
+                                        '<td>' + json[j]["habitation"] + '</td>' +
 
                                       '<td>' + json[j]["user_name"] + '</td>' +
 
@@ -141,6 +159,12 @@
                                         '<td>' + json[j]["stage_order_id"] +"/" + json[j]["total_stages"] + '</td>' +
 
                                       '<td>' + json[j]["stage_name"] + '</td>' +
+
+                                       '<td>' + json[j]["work_id_custom"] + '</td>' +
+
+                                        '<td>' + json[j]["panchayat"] + '</td>' +
+
+                                        '<td>' + json[j]["habitation"] + '</td>' +
 
                                       '<td>' + json[j]["user_name"] + '</td>' +
 
@@ -170,11 +194,59 @@
             }
         });
 
+          function populateschemename() {
+
+          var source = "/rawschemename";
+
+           $.ajax({
+
+            type: 'GET',
+
+            url: source,
+
+            contentType: "application/json",
+
+            dataType: 'json',
+
+            success: function (json) {
+
+                var arr = [];
+
+                for(var i = 0; i < json.length; i++) {
+
+                    if(arr.indexOf(json[i]['scheme_name']) === -1) {
+
+                        arr.push(json[i]['scheme_name']);
+
+                    }
+                }
+             var $schemename = $('.schemepicker');
+
+                var htmlEO = $.map(arr, function(lcn){
+
+                    return '<option value="' + lcn + '">' + lcn + '</option>'
+
+                });
+
+                $schemename.html(htmlEO);
+
+            },
+
+            error: function (e) {
+
+                alert("error");
+
+            }
+        });
+    }
+
           function populateInformation(that) {
 
               block_value = that.value
 
-              var source = "/Blocks/" + block_value;
+              scheme_name_value = document.getElementById('schemename')
+
+              var source = "/Blocks/" + block_value + scheme_name_value;
 
               $.ajax({
 
@@ -202,64 +274,42 @@
                           var hr = "<tr>";
 
                           var th1 = "<th style='text-align:center;vertical-align:middle'>" + "Start date" + "</th>";
-
                           var th2 = "<th style='text-align:center;vertical-align:middle'>" + "End date" + "</th>";
-
                           var th3 = "<th style='text-align:center;vertical-align:middle'>" + "Blocks" + "</th>";
-
                           var th4 = "<th style='text-align:center;vertical-align:middle'>" + "Work Name" + "</th>";
-
                           var th6 = "<th style='text-align:center;vertical-align:middle'>" + "Amount" + "</th>";
-
                           var th7 = "<th style='text-align:center;vertical-align:middle'>" + "Stage Progress" + "</th>";
-
                           var th8 = "<th style='text-align:center;vertical-align:middle'>" + "Stage Name" + "</th>";
-
+                          var th14 = "<th style='text-align:center;vertical-align:middle'>" + "Work ID" + "</th>";
+                          var th15 = "<th style='text-align:center;vertical-align:middle'>" + "Panchayats" + "</th>";
+                          var th16 = "<th style='text-align:center;vertical-align:middle'>" + "Habitations" + "</th>";
                           var th9 = "<th style='text-align:center;vertical-align:middle'>" + "Uploaded by" + "</th>";
-
                           var th10 = "<th style='text-align:center;vertical-align:middle'>" + "Update" + "</th>";
-
                           var th11 = "<th style='text-align:center;vertical-align:middle'>" + "Add Stage" + "</th>";
-
                           var th12 = "<th style='text-align:center;vertical-align:middle'>" + "View Stage" + "</th>";
-
-                          $("#WorkDetails").append(hr + th1 + th2 + th3 + th4 +  th6 + th7 + th8 + th9 + th10 + th11+ th12);
-
+                         $("#WorkDetails").append(hr + th1 + th2 + th3 + th4 + th6 + th7 + th8 + th14 + th15 + th16 + th9 + th10 + th11 + th12);
                           for (var j = 0; j < json.length; j++) {
-
                                {
                                 if (typeof json[j]['stage_order_id'] == 'undefined')
-
                                    {var url = 'updatework/' + json[j]['work_id'];
-
                                     var url_1 = 'add_stage/' + json[j]['work_id'];
-
                                     var url_2 = 'view_stage/' + json[j]['work_id'];
-
                                     var row = $('<tr></tr>').html('<td>' +
 
                                     moment(json[j]["start_date"]['$date']).format('YYYY-MM-DD') + '</td>' +
-
-                                      '<td>' + moment(json[j]["end_date"]['$date']).format('YYYY-MM-DD') + '</td>' +
-
-                                      '<td>' + json[j]["block"] + '</td>' +
-
-                                      '<td>' + json[j]["work_name"] + '</td>' +
-
-                                      '<td>' + json[j]["amount"] + '</td>' +
-
+                                        '<td>' + moment(json[j]["end_date"]['$date']).format('YYYY-MM-DD') + '</td>' +
+                                        '<td>' + json[j]["block"] + '</td>' +
+                                        '<td>' + json[j]["work_name"] + '</td>' +
+                                        '<td>' + json[j]["amount"] + '</td>' +
                                         '<td>' + "1" +"/" + json[j]["total_stages"] + '</td>' +
-
-                                      '<td>' + "Yet to start" + '</td>' +
-
-                                      '<td>' + json[j]["user_name"] + '</td>' +
-
-                                      '<td><button><a href="' + url + '">Update Work</a></button></td>' +
-
-                                      '<td><button><a href="' + url_1 + '">Add Stage</a></button></td>' +
-
-                                      '<td><button><a href="' + url_2 + '">View Stage</a></button></td>');
-
+                                        '<td>' + "Yet to start" + '</td>' +
+                                        '<td>' + json[j]["work_id_custom"] + '</td>' +
+                                        '<td>' + json[j]["panchayat"] + '</td>' +
+                                        '<td>' + json[j]["habitation"] + '</td>' +
+                                        '<td>' + json[j]["user_name"] + '</td>' +
+                                        '<td><button><a href="' + url + '">Update Work</a></button></td>' +
+                                        '<td><button><a href="' + url_1 + '">Add Stage</a></button></td>' +
+                                        '<td><button><a href="' + url_2 + '">View Stage</a></button></td>');
                                     $("#WorkDetails").append(row);}
 
                                 else{
@@ -284,6 +334,12 @@
                                         '<td>' + json[j]["stage_order_id"] +"/" + json[j]["total_stages"] + '</td>' +
 
                                       '<td>' + json[j]["stage_name"] + '</td>' +
+
+                                       '<td>' + json[j]["work_id_custom"] + '</td>' +
+
+                                        '<td>' + json[j]["panchayat"] + '</td>' +
+
+                                        '<td>' + json[j]["habitation"] + '</td>' +
 
                                       '<td>' + json[j]["user_name"] + '</td>' +
 
