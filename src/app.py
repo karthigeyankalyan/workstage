@@ -1070,7 +1070,7 @@ def log_out():
     email = session['email']
     user = User.get_by_email(email)
     if email is not None:
-        if user.society_name is not None:
+        if user is not None:
             user.logout()
             return render_template('logged_out.html', user=user.username)
 
