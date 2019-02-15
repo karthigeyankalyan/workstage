@@ -90,28 +90,15 @@
                                     var row = $('<tr></tr>').html('<td>' +
 
                                     moment(json[j]["start_date"]['$date']).format('YYYY-MM-DD') + '</td>' +
-
                                       '<td>' + moment(json[j]["end_date"]['$date']).format('YYYY-MM-DD') + '</td>' +
-
                                       '<td>' + json[j]["block"] + '</td>' +
-
                                       '<td>' + json[j]["work_name"] + '</td>' +
-
                                       '<td>' + json[j]["amount"] + '</td>' +
-
                                         '<td>' + "1" +"/" + json[j]["total_stages"] + '</td>' +
-
                                       '<td>' + "Yet to start" + '</td>' +
                                       '<td>' + json[j]["work_id_custom"] + '</td>' +
-
-                                           '<td>' + json[j]["panchayat"] + '</td>' +
-
-                                            '<td>' + json[j]["habitation"] + '</td>' +
-
-                                        '<td>' + json[j][""] + '</td>' +
-
-                                       '<td>' + json[j][""] + '</td>' +
-
+                                        '<td>' + json[j]["panchayat"] + '</td>' +
+                                        '<td>' + json[j]["habitation"] + '</td>' +
                                       '<td>' + json[j]["user_name"] + '</td>' +
 
                                       '<td><button><a href="' + url + '">Update Work</a></button></td>' +
@@ -295,7 +282,7 @@
                           for (var j = 0; j < json.length; j++) {
 
                               {
-                                if (typeof json[j]['stage_order_id'] == 'undefined')
+                                if (typeof json[j]['stage_order_id'] === 'undefined')
 
                                    {var url = 'updatework/' + json[j]['work_id'];
 
@@ -323,7 +310,7 @@
 
                                         '<td>' + json[j]["panchayat"] + '</td>' +
 
-                                             '<td>' + json[j]["habitation"] + '</td>' +
+                                        '<td>' + json[j]["habitation"] + '</td>' +
 
                                       '<td>' + json[j]["user_name"] + '</td>' +
 
@@ -345,33 +332,19 @@
                                     var row = $('<tr></tr>').html('<td>' +
 
                                     moment(json[j]["start_date"]['$date']).format('YYYY-MM-DD') + '</td>' +
-
                                       '<td>' + moment(json[j]["end_date"]['$date']).format('YYYY-MM-DD') + '</td>' +
-
                                       '<td>' + json[j]["block"] + '</td>' +
-
                                       '<td>' + json[j]["work_name"] + '</td>' +
-
                                       '<td>' + json[j]["amount"] + '</td>' +
-
                                         '<td>' + json[j]["stage_order_id"] +"/" + json[j]["total_stages"] + '</td>' +
-
                                       '<td>' + json[j]["stage_name"] + '</td>' +
-
                                        '<td>' + json[j]["work_id_custom"] + '</td>' +
-
                                         '<td>' + json[j]["panchayat"] + '</td>' +
-
                                         '<td>' + json[j]["habitation"] + '</td>' +
-
                                       '<td>' + json[j]["user_name"] + '</td>' +
-
                                       '<td><button><a href="' + url + '">Update Work</a></button></td>' +
-
                                       '<td><button><a href="' + url_1 + '">Add Stage</a></button></td>' +
-
                                       '<td><button><a href="' + url_2 + '">View Stage</a></button></td>');
-
                                     $("#WorkDetails").append(row);}
                                 }
                             }

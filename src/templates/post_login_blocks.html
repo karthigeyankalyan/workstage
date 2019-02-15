@@ -32,7 +32,7 @@
 
     <style>
 
-            #dropbtn, #dropbtn2, #dropbtn3 {
+            #dropbtn, #dropbtn2, #dropbtn3, #dropbtn4 {
 
                 color: darkslategrey;
 
@@ -129,66 +129,41 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
             <ul class="navbar-nav mr-auto">
-
                 <li class="nav-item active">
-
                     <div class="dropdown">
-
                         <div id="dropbtn"> Works</div>
-
                             <div class="dropdown-content">
-
                                  <a href="/view_work">View Work</a>
-
-
                             </div>
-
                     </div>
-
                 </li>
-
                 <li class="nav-item active">
-
                     <div class="dropdown">
-
                         <div id="dropbtn2">Work Progress</div>
-
-                        <div class="dropdown-content">
-
-                            <a href="/Completed_work">Completed Work</a>
-
-                            <a href="/Ongoing_work">Undergoing Work</a>
-
-                             <a href="/Deadline_violation_work">Deadline Violation Work</a>
-
+                            <div class="dropdown-content">
+                                <a href="/Completed_work">Completed Work</a>
+                                <a href="/Ongoing_work">Undergoing Work</a>
+                                <a href="/Deadline_violation_work">Deadline Violation Work</a>
+                            </div>
                         </div>
-
-                    </div>
-
                 </li>
-
-
                 <li class="nav-item active">
-
                     <div class="dropdown">
-
                         <div id="dropbtn3">Report Summary</div>
-
-                        <div class="dropdown-content">
-
-
-                            <a href="/Block_summary">Block Summary</a>
-
-                        </div>
-
+                            <div class="dropdown-content">
+                                <a href="/Block_summary">Block Summary</a>
+                            </div>
                     </div>
-
                 </li>
-
+                <li class="nav-item active">
+                    <div class="dropdown">
+                        <div id="dropbtn4">
+                            <a href="/loggedOut">Log-Out</a>
+                        </div>
+                    </div>
+                </li>
             </ul>
-
         </div>
-
     </nav>
 
 {% block content %}

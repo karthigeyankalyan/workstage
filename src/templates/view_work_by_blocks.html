@@ -241,34 +241,20 @@
     }
 
           function populateInformation(that) {
-
-              block_value = that.value
-
-              scheme_name_value = document.getElementById('schemename')
+              var block_value = that.value;
+              var scheme_name_value = document.getElementById('schemename').value;
 
               var source = "/Blocks/" + block_value + scheme_name_value;
-
               $.ajax({
-
                   type: 'GET',
-
                   url: source,
-
                   contentType: "application/json",
-
                   dataType: 'json',
-
                   success: function (json) {
-
                       {
-
                           var $Workblocks = $("#Blocks");
-
-
                           $("#WorkDetails").find("tbody").empty();
-
                           var tbl = $("<table class='table table-bordered table-dark' id='WorkDetails'/>");
-
                           $("#WorkList").append(tbl);
 
                           var hr = "<tr>";
@@ -352,20 +338,12 @@
                                     $("#WorkDetails").append(row);}
                                 }
                             }
-
                         }
-
-
-
                 }
-
             },
 
-
             error: function (e) {
-
-                alert("error");
-
+                alert("No Works in chosen category");
             }
         });
 
