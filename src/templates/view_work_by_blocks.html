@@ -12,7 +12,7 @@
 
         <div id=" Workblocks">
             <label for="Blocks">Work Blocks</label>
-            <select class="form-control" id="Blocks" onchange="populateInformation(this)" name="Workblocks">
+            <select class="form-control" id="Blocks" name="Workblocks">
                 {% set nature = ['DINDIGUL', 'DINDIGUL-HQ', 'ATHOOR', 'REDDIARCHATRAM', 'SHANARPATTI', 'NATHAM', 'NILAKOTTAI', 'BATLAGUNDU', 'PALANI', 'ODDANCHATRAM', 'THOPPAMPATTY', 'VEDASANDUR', 'VADAMADURAI', 'GUZILIAMPARAI', 'KODAIKANAL'] %}
 
                 {% for nat in nature %}
@@ -24,7 +24,7 @@
 
      <div class="form-group" style="display: flex; flex-direction: column; align-items: center; justify-content: space-between;">
          <label for="schemename">Scheme name</label>
-         <select class="schemepicker" id="schemename" name="schemename" style="display: block; width: 100%" ></select>
+         <select class="schemepicker" id="schemename" onchange="populateInformation(this)" name="schemename" style="display: block; width: 100%" ></select>
      </div>
 
 
@@ -240,8 +240,8 @@
     }
 
           function populateInformation(that) {
-              var block_value = that.value;
-              var scheme_name_value = document.getElementById('schemename').value;
+              var scheme_name_value = that.value;
+              var block_value = document.getElementById('Blocks').value;
 
               var source = "/Blocks/" + block_value + '/' + scheme_name_value;
               $.ajax({
