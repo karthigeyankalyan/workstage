@@ -42,33 +42,24 @@
                   var hr = "<tr>";
 
                   var th1 = "<th style='text-align:center;vertical-align:middle'>" + "Scheme Group Name" + "</th>";
-
                   var th2 = "<th style='text-align:center;vertical-align:middle'>" + "Scheme Name" + "</th>";
-
                   var th3 = "<th style='text-align:center;vertical-align:middle'>" + "Work Group Name" + "</th>";
-
                   var th4 = "<th style='text-align:center;vertical-align:middle'>" + "Work Type" + "</th>";
+                  var th5 = "<th style='text-align:center;vertical-align:middle'>" + "Update Scheme" + "</th>";
+                  var th6 = "<th style='text-align:center;vertical-align:middle'>" + "Delete Scheme" + "</th>";
 
-                  $("#SchemeDetails").append(hr + th1 + th2 + th3 + th4);
-
+                  $("#SchemeDetails").append(hr + th1 + th2 + th3 + th4 + th5);
                   for (var j = 0; j < json.length; j++) {
-
                       {
-
                           var url = '/updatescheme/' + json[j]['_id'];
-
+                          var url1 = '/delete_scheme/' + json[j]['_id'];
                           var row = $('<tr></tr>').html(
-
                               '<td>'+  json[j]["scheme_group_name"] + '</td>' +
-
                               '<td>' + json[j]["scheme_name"] + '</td>' +
-
                               '<td>' + json[j]["work_group_name"] + '</td>' +
-
                               '<td>' + json[j]["work_type"] + '</td>' +
-
-                              '<td><button><a href="' + url + '">Update Scheme</a></button></td>');
-
+                              '<td><button><a href="' + url + '">Update Scheme</a></button></td>'+
+                              '<td><button><a href="' + url1 + '">Delete Scheme</a></button></td>');
                           $("#SchemeDetails").append(row);
 
                       }

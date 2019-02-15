@@ -40,6 +40,8 @@ class Scheme(object):
 
         }
 
-
+    @classmethod
+    def delete_from_mongo(cls, _id):
+        Database.delete_from_mongo(collection='schemes', query={'_id': _id})
 
 

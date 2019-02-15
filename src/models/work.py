@@ -8,58 +8,33 @@ class Work(object):
 
     def __init__(self, amount, work_name, user_id, user_name, block, scheme_group_name, scheme_name, work_group_name, work_type,
                     work_status='Open', amount_spent=None, total_stages=None, habitation=None, panchayat=None,
-                    start_date=None, end_date=None, work_id=None):
-
+                    start_date=None, end_date=None, work_id=None, work_id_custom=None):
 
         if start_date:
-
             self.start_date = datetime.combine(datetime.strptime(start_date, '%Y-%m-%d').date(),
-
-                                                 datetime.now().time())
-
+                                               datetime.now().time())
         else:
-
             self.start_date = None
-
-
-
         if end_date:
-
             self.end_date = datetime.combine(datetime.strptime(end_date, '%Y-%m-%d').date(),
-
                                                 datetime.now().time())
-
         else:
-
             self.end_date = None
-
-
-
         self.block = block
         self.panchayat = panchayat
         self.habitation = habitation
         self.amount = amount
-
         self.total_stages = total_stages
-
         self.user_id = user_id
-
         self.user_name = user_name
-
         self.work_status = work_status
-
         self.work_name = work_name
-
         self.scheme_group_name = scheme_group_name
-
         self.scheme_name = scheme_name
-
         self.work_group_name = work_group_name
-
         self.work_type = work_type
-
         self.amount_spent = amount_spent
-
+        self.work_id_custom = work_id_custom
         self.work_id = uuid.uuid4().hex if work_id is None else work_id
 
 
@@ -67,8 +42,8 @@ class Work(object):
 
         Database.insert(collection='works', data=self.json())
 
-    @classmethod
 
+    @classmethod
     def update_work(cls, work_name, work_id, block, start_date, end_date, amount, total_stages, amount_spent,
                     scheme_group_name, scheme_name, work_group_name, work_type,panchayat,habitation,
                      user_id, user_name, work_status,):
@@ -93,11 +68,8 @@ class Work(object):
             'block': self.block,
             'panchayat': self.panchayat,
             'habitation': self.habitation,
-
             'amount': self.amount,
-
             'start_date': self.start_date,
-
             'end_date': self.end_date,
 
             'total_stages': self.total_stages,
@@ -107,6 +79,7 @@ class Work(object):
             'user_name': self.user_name,
 
             'work_id': self.work_id,
+            'work_id_custom': self.work_id_custom,
 
             'work_status': self.work_status,
 
@@ -126,11 +99,8 @@ class Work(object):
 
 
     @classmethod
-
     def from_mongo(cls, work_id):
-
         Intent = Database.find_one(collection='works', query={'work_id': work_id})
-
         return cls(**Intent)
 
     @classmethod

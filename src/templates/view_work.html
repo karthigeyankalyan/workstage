@@ -9,6 +9,10 @@
               <input id="Search" type="text" onkeyup="myFunction()" name="Search" style="display: block; width: 100%">
         </div>
 
+        <div id="inputWorkID">
+              <label style="flex: 4" for="Search">Search by Work ID</label>
+              <input id="SearchID" type="text" onkeyup="myFunctionID()" name="Search" style="display: block; width: 100%">
+        </div>
     </div>
 
      <div class="form-group" style="display: flex; flex-direction: column; align-items: center; justify-content: space-between;">
@@ -59,13 +63,14 @@
                           var th6 = "<th style='text-align:center;vertical-align:middle'>" + "Amount" + "</th>";
                           var th7 = "<th style='text-align:center;vertical-align:middle'>" + "Stage Progress" + "</th>";
                           var th8 = "<th style='text-align:center;vertical-align:middle'>" + "Stage Name" + "</th>";
+                          var th15 = "<th style='text-align:center;vertical-align:middle'>" + "Work ID" + "</th>";
                           var th10 = "<th style='text-align:center;vertical-align:middle'>" + "Uploaded by" + "</th>";
                           var th11 = "<th style='text-align:center;vertical-align:middle'>" + "Update" + "</th>";
                           var th12 = "<th style='text-align:center;vertical-align:middle'>" + "Delete" + "</th>";
                           var th13 = "<th style='text-align:center;vertical-align:middle'>" + "Add Stage" + "</th>";
                           var th14 = "<th style='text-align:center;vertical-align:middle'>" + "View Stage" + "</th>";
 
-                        $("#WorkDetails").append(hr + th1 + th2 + th3 + th4 + th6 + th7 + th8 + th10 + th11+ th12+ th13+ th14);
+                        $("#WorkDetails").append(hr + th1 + th2 + th3 + th4 + th6 + th7 + th8 + th15 + th10 + th11+ th12+ th13+ th14);
 
                         for (var j = 0; j < json.length; j++) {
 
@@ -95,6 +100,7 @@
                                         '<td>' + "1" +"/" + json[j]["total_stages"] + '</td>' +
 
                                       '<td>' + "Yet to start" + '</td>' +
+                                      '<td>' + json[j]["work_id_custom"] + '</td>' +
 
                                       '<td>' + json[j]["user_name"] + '</td>' +
 
@@ -132,6 +138,7 @@
                                         '<td>' + json[j]["stage_order_id"] +"/" + json[j]["total_stages"] + '</td>' +
 
                                       '<td>' + json[j]["stage_name"] + '</td>' +
+                                      '<td>' + json[j]["work_id_custom"] + '</td>' +
 
                                       '<td>' + json[j]["user_name"] + '</td>' +
 
@@ -392,6 +399,41 @@
 
               }
 
+              function myFunctionID() {
+
+                  var input, filter, table, tr, td, i;
+
+                  input = document.getElementById("SearchID");
+
+                  filter = input.value.toUpperCase();
+
+                  table = document.getElementById("WorkList");
+
+                  tr = table.getElementsByTagName("tr");
+
+                  console.log(tr.length);
+
+                  for (i = 0; i < tr.length; i++) {
+
+                      td = tr[i].getElementsByTagName("td")[7];
+
+                      if (td) {
+
+                          if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+
+                              tr[i].style.display = "";
+
+                          } else {
+
+                              tr[i].style.display = "none";
+
+                          }
+
+                      }
+
+                  }
+
+              }
 </script>
 
 {% endblock %}

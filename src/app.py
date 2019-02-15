@@ -110,8 +110,8 @@ def login_user():
 
         return render_template('login_fail.html')
 
-@app.route('/authorize/register', methods=['POST'])
 
+@app.route('/authorize/register', methods=['POST'])
 def register_user():
 
     email = request.form['email']
@@ -136,8 +136,8 @@ def register_user():
 
         return render_template('profile_blocks.html', user=user)
     
-@app.route('/add_work/<string:user_id>', methods=['POST', 'GET'])
 
+@app.route('/add_work/<string:user_id>', methods=['POST', 'GET'])
 def work_form(user_id):
 
     email = session['email']
@@ -165,6 +165,7 @@ def work_form(user_id):
             scheme_name = request.form['schemename']
             work_group_name = request.form['workgroupname']
             work_type = request.form['worktype']
+            work_id_custom = request.form['workIdCustom']
             user_id = user_id
             user_name = user.username
 
@@ -172,7 +173,7 @@ def work_form(user_id):
                         work_group_name=work_group_name, work_type=work_type, panchayat=panchayat, habitation=habitation,
                         total_stages=total_stages, start_date=start_date,
                         user_id=user_id, user_name=user_name, work_status="Open", work_name=work_name,
-                        end_date=end_date)
+                        end_date=end_date, work_id_custom=work_id_custom)
 
             work.save_to_mongo()
 
@@ -1535,29 +1536,34 @@ def get_panchayat_name(block):
 
     return completed_intents
 
-@app.route('/deletework/<string:work_id>')
 
+@app.route('/deletework/<string:work_id>')
 def deletework(work_id):
 
-        email = session['email']
+    email = session['email']
+    user = User.get_by_email(email)
+    Work.deletefrom_mongo(work_id= work_id)
 
-        user = User.get_by_email(email)
+    return render_template('deleted.html', user=user)
 
-        Work.deletefrom_mongo(work_id= work_id)
-
-        return render_template('deleted.html', user=user)
 
 @app.route('/deletestage/<string:_id>')
-
 def deletestage(_id):
 
-        email = session['email']
+    email = session['email']
+    user = User.get_by_email(email)
+    Stage.deletefrom_mongo(_id= _id)
+    return render_template('deleted.html', user=user)
 
-        user = User.get_by_email(email)
 
-        Stage.deletefrom_mongo(_id= _id)
+@app.route('/delete_scheme/<string:_id>')
+def delete_scheme(_id):
 
-        return render_template('deleted.html', user=user)
+    email = session['email']
+    user = User.get_by_email(email)
+    Scheme.delete_from_mongo(_id= _id)
+    return render_template('deleted.html', user=user)
+
 
 @app.route('/habitations/<string:block>/<string:panchayat>')
 def get_habitation_name(block, panchayat):
