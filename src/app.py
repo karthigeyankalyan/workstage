@@ -1083,8 +1083,12 @@ def get_work_by_blocks(block_value, scheme_name_value):
 
     work = []
 
-    work_dict = Database.find("works", {"$and": [{"block" : block_value},
-                                                 {"scheme_name": scheme_name_value}]})
+    if scheme_name_value == 'All':
+        work_dict = Database.find("works", {"block" : block_value})
+
+    else:
+        work_dict = Database.find("works", {"$and": [{"block": block_value},
+                                                     {"scheme_name": scheme_name_value}]})
 
     for tran in work_dict:
 
@@ -1094,8 +1098,8 @@ def get_work_by_blocks(block_value, scheme_name_value):
 
     return single_work
 
-@app.route('/Stagesbywork/<string:work_id>')
 
+@app.route('/Stagesbywork/<string:work_id>')
 def stages_by_work(work_id):
 
     stage = []
